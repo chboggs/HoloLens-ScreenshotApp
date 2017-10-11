@@ -12,7 +12,6 @@ public class SpeechManager : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        Debug.Log("Started speech");
         keywords.Add("Reset world", () =>
         {
             // Call the OnReset method on every descendant object.
@@ -41,7 +40,6 @@ public class SpeechManager : MonoBehaviour
         // Register a callback for the KeywordRecognizer and start recognizing!
         keywordRecognizer.OnPhraseRecognized += KeywordRecognizer_OnPhraseRecognized;
         keywordRecognizer.Start();
-        Debug.Log("ended start");
     }
 
     private void KeywordRecognizer_OnPhraseRecognized(PhraseRecognizedEventArgs args)

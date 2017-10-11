@@ -17,10 +17,10 @@ public class ManipulationCoordinateTracker : MonoBehaviour
         yCoords.Add(headRay.origin.y);
         zCoords.Add(headRay.origin.z);
 
-        Console.Write("Started");
-        Console.Write(headRay.origin.x);
-        Console.Write(headRay.origin.y);
-        Console.Write(headRay.origin.z);
+        Debug.Log("Started");
+        Debug.Log(headRay.origin.x);
+        Debug.Log(headRay.origin.y);
+        Debug.Log(headRay.origin.z);
     }
     public void ManipulationUpdatedFunc(InteractionSourceKind source, Vector3 cumulativeDelta, Ray headRay)
     {
@@ -28,10 +28,10 @@ public class ManipulationCoordinateTracker : MonoBehaviour
         yCoords.Add(headRay.origin.y);
         zCoords.Add(headRay.origin.z);
 
-        Console.Write("Updated");
-        Console.Write(headRay.origin.x);
-        Console.Write(headRay.origin.y);
-        Console.Write(headRay.origin.z);
+        Debug.Log("Updated");
+        Debug.Log(headRay.origin.x);
+        Debug.Log(headRay.origin.y);
+        Debug.Log(headRay.origin.z);
     }
 
     public void ManipulationCompletedFunc(InteractionSourceKind source, Vector3 cumulativeDelta, Ray headRay)
@@ -40,10 +40,10 @@ public class ManipulationCoordinateTracker : MonoBehaviour
         yCoords.Add(headRay.origin.y);
         zCoords.Add(headRay.origin.z);
 
-        Console.Write("Completed");
-        Console.Write(headRay.origin.x);
-        Console.Write(headRay.origin.y);
-        Console.Write(headRay.origin.z);
+        Debug.Log("Completed");
+        Debug.Log(headRay.origin.x);
+        Debug.Log(headRay.origin.y);
+        Debug.Log(headRay.origin.z);
     }
     // Use this for initialization
     void Start()
@@ -51,6 +51,7 @@ public class ManipulationCoordinateTracker : MonoBehaviour
         xCoords = new List<float>();
         yCoords = new List<float>();
         zCoords = new List<float>();
+        Debug.Log("Started the start");
 
         GestureRecognizer recognizer = new GestureRecognizer();
         recognizer.SetRecognizableGestures(GestureSettings.ManipulationTranslate);
