@@ -11,6 +11,11 @@ public class ManipulationCoordinateTracker : MonoBehaviour
     static List<float> yCoords;
     static List<float> zCoords;
 
+    public void MyTapEventHandler(InteractionSourceKind source, int tapCount, Ray headRay)
+    {
+        Debug.Log("tip tap");
+    }
+
     public void ManipulationStartedFunc(InteractionSourceKind source, Vector3 cumulativeDelta, Ray headRay)
     {
         xCoords.Add(headRay.origin.x);
@@ -54,11 +59,13 @@ public class ManipulationCoordinateTracker : MonoBehaviour
         Debug.Log("Started the start");
 
         GestureRecognizer recognizer = new GestureRecognizer();
-        recognizer.SetRecognizableGestures(GestureSettings.ManipulationTranslate);
+        recognizer.SetRecognizableGestures(GestureSettings.Tap | GestureSettings.ManipulationTranslate);
 
         recognizer.ManipulationStartedEvent += ManipulationStartedFunc;
         recognizer.ManipulationUpdatedEvent += ManipulationUpdatedFunc;
         recognizer.ManipulationCompletedEvent += ManipulationCompletedFunc;
+
+        recognizer.TappedEvent += MyTapEventHandler;
 
         recognizer.StartCapturingGestures();
     }

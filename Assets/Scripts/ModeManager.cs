@@ -9,7 +9,7 @@ public class ModeManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		List<ModeAssigner> assigners = GameObject.FindObjectOfType (typeof(ModeAssigner));
+		ModeAssigner[] assigners = GameObject.FindObjectsOfType (typeof(ModeAssigner)) as ModeAssigner[];
 		foreach (ModeAssigner assigner in assigners) {
 			Register (assigner.gameObject, assigner.mode);
 		}
