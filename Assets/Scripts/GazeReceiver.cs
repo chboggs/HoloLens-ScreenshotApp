@@ -1,69 +1,71 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class GazeReceiver : MonoBehaviour {
-    
-    public delegate void GazeDelegate(Ray gaze);
+	
+	[System.Serializable]
+	public class RayEvent : UnityEvent <Ray> {}
 
-    public event GazeDelegate GazeEnterEvent;
-    public event GazeDelegate GazeEvent;
-    public event GazeDelegate GazeLeaveEvent;
+	public RayEvent GazeEnterEvent;
+	public RayEvent GazeEvent;
+	public RayEvent GazeLeaveEvent;
 
-    public event GazeDelegate TappedEvent;
+	public RayEvent TappedEvent;
 
-    public event GazeDelegate DragStartEvent;
-    public event GazeDelegate DragEndEvent;
-    public event GazeDelegate DragEvent;
-    public event GazeDelegate DragEnterEvent;
-    public event GazeDelegate DragLeaveEvent;
+	public RayEvent DragStartEvent;
+	public RayEvent DragEndEvent;
+	public RayEvent DragEvent;
+	public RayEvent DragEnterEvent;
+	public RayEvent DragLeaveEvent;
 
 
     public void GazeEnter(Ray gaze)
     {
         Debug.Log("enter");
-        if (GazeEnterEvent != null) GazeEnterEvent(gaze);
+        if (GazeEnterEvent != null) GazeEnterEvent.Invoke(gaze);
     }
     public void Gaze(Ray gaze)
     {
-        if (GazeEvent != null) GazeEvent(gaze);
+		if (GazeEvent != null) GazeEvent.Invoke(gaze);
     }
 
     public void GazeLeave(Ray gaze)
     {
         Debug.Log("leave");
-        if (GazeLeaveEvent != null) GazeLeaveEvent(gaze);
+		if (GazeLeaveEvent != null) GazeLeaveEvent.Invoke(gaze);
     }
 
     public void Tapped(Ray gaze)
     {
         Debug.Log("tap received");
-        if (TappedEvent != null) TappedEvent(gaze);
+		if (TappedEvent != null) TappedEvent.Invoke(gaze);
     }
 
     public void DragStart(Ray gaze)
     {
-        if (DragStartEvent != null) DragStartEvent(gaze);
+		if (DragStartEvent != null) DragStartEvent.Invoke(gaze);
     }
 
     public void Drag(Ray gaze)
     {
-        if (DragEvent != null) DragEvent(gaze);
+		if (DragEvent != null) DragEvent.Invoke(gaze);
     }
 
     public void DragEnd(Ray gaze)
     {
-        if (DragEndEvent != null) DragEndEvent(gaze);
+		if (DragEndEvent != null) DragEndEvent.Invoke(gaze);
     }
 
     public void DragEnter(Ray gaze)
     {
-        if (DragEnterEvent != null) DragEnterEvent(gaze);
+		if (DragEnterEvent != null) DragEnterEvent.Invoke(gaze);
     }
 
     public void DragLeave(Ray gaze)
     {
-        if (DragLeaveEvent != null) DragLeaveEvent(gaze);
+		if (DragLeaveEvent != null) DragLeaveEvent.Invoke(gaze);
     }
 }
 
