@@ -6,14 +6,14 @@ using UnityEngine.VR.WSA.Input;
 
 public class GazeInputManager : MonoBehaviour
 {
-    GazeReceiver focused;
-    bool gazing;
+    public GazeReceiver focused;
+    bool gazing =true;
     bool dragging;
     bool sentDragStart;
 	bool endDrag;
 
-    GameObject cameraReference;
-    Vector3 cameraLocation;
+    public GameObject cameraReference;
+    public Vector3 cameraLocation;
     Vector3 cameraDirection;
 	Vector3 dragStartLocation;
 	Vector3 dragChange;
@@ -105,7 +105,7 @@ public class GazeInputManager : MonoBehaviour
 	}
 
 	void StartDragging(GazeReceiver gr, Ray ray){
-		SetGazeTarget (null);
+		SetGazeTarget (null, ray);
 		if (gr != null) {
 			gr.DragStart (ray);
 			focused = gr;
@@ -135,7 +135,7 @@ public class GazeInputManager : MonoBehaviour
 
 	void StopDragging(GazeReceiver gr, Ray ray){
 		if (focused != null) {
-			focused.DragEnd ();
+			focused.DragEnd (ray);
 		}
 	}
 
