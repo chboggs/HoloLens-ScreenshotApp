@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Linq;
 using UnityEngine.VR.WSA.WebCam;
+using System;
 
 public class ImageGet : MonoBehaviour
 {
@@ -11,9 +12,10 @@ public class ImageGet : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        
         Resolution cameraResolution = PhotoCapture.SupportedResolutions.OrderByDescending((res) => res.width * res.height).First();
         targetTexture = new Texture2D(cameraResolution.width, cameraResolution.height);
-
+        
         // Create a PhotoCapture object
         PhotoCapture.CreateAsync(false, delegate (PhotoCapture captureObject) {
             Debug.Log("createasync");
@@ -27,6 +29,7 @@ public class ImageGet : MonoBehaviour
             // Activate the camera
             photoCaptureObject.StartPhotoModeAsync(cameraParameters, delegate (PhotoCapture.PhotoCaptureResult result) {
                 // Take a picture
+                Debug.Log("create, photo is null: " + (photoCaptureObject == null).ToString()); 
                 photoCaptureObject.TakePhotoAsync(OnCapturedPhotoToMemory);
             });
         });
@@ -56,8 +59,8 @@ public class ImageGet : MonoBehaviour
         quad.transform.localPosition = new Vector3(0.0f, 0.0f, 3.0f);
 
         quadRenderer.material.SetTexture("_MainTex", targetTexture);
-        
-       
+
+        gameObject.GetComponent<Renderer>().material.mainTexture = targetTexture;
         // Deactivate the camera
         photoCaptureObject.StopPhotoModeAsync(OnStoppedPhotoMode);
     }
@@ -73,9 +76,17 @@ public class ImageGet : MonoBehaviour
     public void Capture()
     {
         Debug.Log("Capture");
-        photoCaptureObject.TakePhotoAsync(OnCapturedPhotoToMemory);
+        try
+        {
+            Debug.Log(photoCaptureObject == null);
+            photoCaptureObject.TakePhotoAsync(OnCapturedPhotoToMemory);
+        }
+        catch( Exception e)
+        {
+            Debug.Log(e);
+        }
         //photoCaptureObject.TakePhotoAsync("file",PhotoCaptureFileOutputFormat.JPG);
-        gameObject.GetComponent<Renderer>().material.mainTexture = targetTexture;
+        //gameObject.GetComponent<Renderer>().material.mainTexture = targetTexture;
 
     }
 }
