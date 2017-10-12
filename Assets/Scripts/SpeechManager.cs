@@ -26,7 +26,7 @@ public class SpeechManager : MonoBehaviour
 
 
 
-        keywords.Add("Take Photo", () =>
+        keywords.Add("capture", () =>
         {
             Debug.Log("photo");
             GameObject.FindGameObjectWithTag("PictureFrame").GetComponent<ImageGet>().Capture();
@@ -40,6 +40,7 @@ public class SpeechManager : MonoBehaviour
         // Register a callback for the KeywordRecognizer and start recognizing!
         keywordRecognizer.OnPhraseRecognized += KeywordRecognizer_OnPhraseRecognized;
         keywordRecognizer.Start();
+        Debug.Log("started voice recog");
     }
 
     private void KeywordRecognizer_OnPhraseRecognized(PhraseRecognizedEventArgs args)

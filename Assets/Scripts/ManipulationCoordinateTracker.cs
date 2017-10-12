@@ -6,10 +6,9 @@ using UnityEngine.VR.WSA.Input;
 
 public class ManipulationCoordinateTracker : MonoBehaviour
 {
-
-    static List<float> xCoords;
-    static List<float> yCoords;
-    static List<float> zCoords;
+    public GameObject cube;
+    public List<Vector3> coordinates;
+    Vector3 start;
 
     public void MyTapEventHandler(InteractionSourceKind source, int tapCount, Ray headRay)
     {
@@ -18,54 +17,60 @@ public class ManipulationCoordinateTracker : MonoBehaviour
 
     public void ManipulationStartedFunc(InteractionSourceKind source, Vector3 cumulativeDelta, Ray headRay)
     {
-        xCoords.Add(headRay.origin.x);
-        yCoords.Add(headRay.origin.y);
-        zCoords.Add(headRay.origin.z);
+        coordinates.Add(headRay.origin);
 
         Debug.Log("Started");
-        Debug.Log(headRay.origin.x);
-        Debug.Log(headRay.origin.y);
-        Debug.Log(headRay.origin.z);
+        Debug.Log(headRay.direction.ToString("F4"));
+ 
+        
+
+        //Debug.Log(cumulativeDelta);
+
     }
     public void ManipulationUpdatedFunc(InteractionSourceKind source, Vector3 cumulativeDelta, Ray headRay)
     {
-        xCoords.Add(headRay.origin.x);
-        yCoords.Add(headRay.origin.y);
-        zCoords.Add(headRay.origin.z);
+        coordinates.Add(headRay.origin);
+        //Debug.Log(cumulativeDelta.ToString("F4"));
+        Debug.Log(headRay.direction.ToString("F4"));
+        Spawn((cumulativeDelta) + headRay.origin +headRay.direction.normalized*2);
 
-        Debug.Log("Updated");
-        Debug.Log(headRay.origin.x);
-        Debug.Log(headRay.origin.y);
-        Debug.Log(headRay.origin.z);
+        //Debug.Log("Updated");
     }
 
     public void ManipulationCompletedFunc(InteractionSourceKind source, Vector3 cumulativeDelta, Ray headRay)
     {
-        xCoords.Add(headRay.origin.x);
-        yCoords.Add(headRay.origin.y);
-        zCoords.Add(headRay.origin.z);
+        coordinates = new List<Vector3>();
 
-        Debug.Log("Completed");
-        Debug.Log(headRay.origin.x);
-        Debug.Log(headRay.origin.y);
-        Debug.Log(headRay.origin.z);
+        //Debug.Log("Completed");
     }
+    
     // Use this for initialization
+
+    GestureRecognizer recognizer;
+
+    void Spawn(Vector3 loc)
+    {
+        GameObject newcube = Instantiate(cube);
+        newcube.transform.position = loc;
+    }
+
     void Start()
     {
-        xCoords = new List<float>();
-        yCoords = new List<float>();
-        zCoords = new List<float>();
+       
         Debug.Log("Started the start");
 
-        GestureRecognizer recognizer = new GestureRecognizer();
+        recognizer = new GestureRecognizer();
         recognizer.SetRecognizableGestures(GestureSettings.Tap | GestureSettings.ManipulationTranslate);
-
+        
         recognizer.ManipulationStartedEvent += ManipulationStartedFunc;
         recognizer.ManipulationUpdatedEvent += ManipulationUpdatedFunc;
         recognizer.ManipulationCompletedEvent += ManipulationCompletedFunc;
-
-        recognizer.TappedEvent += MyTapEventHandler;
+        
+        recognizer.TappedEvent += (InteractionSourceKind source, int tapCount, Ray headRay) =>
+        {
+            Debug.Log("tapped");
+            Debug.Log(headRay.direction.ToString("F4"));
+        };
 
         recognizer.StartCapturingGestures();
     }
