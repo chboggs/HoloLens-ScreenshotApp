@@ -47,7 +47,7 @@ public class ImageGet : MonoBehaviour
         photoCaptureFrame.UploadImageDataToTexture(targetTexture);
       
         // Create a GameObject to which the texture can be applied
-        /*
+        
         GameObject quad = GameObject.CreatePrimitive(PrimitiveType.Quad);
         Renderer quadRenderer = quad.GetComponent<Renderer>() as Renderer;
         quadRenderer.material = new Material(Shader.Find("Custom/Unlit/UnlitTexture"));
@@ -56,7 +56,7 @@ public class ImageGet : MonoBehaviour
         quad.transform.localPosition = new Vector3(0.0f, 0.0f, 3.0f);
 
         quadRenderer.material.SetTexture("_MainTex", targetTexture);
-        */
+        
        
         // Deactivate the camera
         photoCaptureObject.StopPhotoModeAsync(OnStoppedPhotoMode);

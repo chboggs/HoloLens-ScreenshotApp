@@ -50,7 +50,9 @@ public class GazeReceiver : MonoBehaviour {
 
     public void Drag(Ray gaze)
     {
-		if (DragEvent != null) DragEvent.Invoke(gaze);
+        Debug.Log("receiver drag");
+        if (DragEvent != null) DragEvent.Invoke(gaze);
+        else Debug.Log("dragevent is null");
     }
 
     public void DragEnd(Ray gaze)

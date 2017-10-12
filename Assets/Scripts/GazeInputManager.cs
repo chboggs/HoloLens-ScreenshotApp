@@ -7,8 +7,8 @@ using UnityEngine.VR.WSA.Input;
 public class GazeInputManager : MonoBehaviour
 {
     public GazeReceiver focused;
-    bool gazing =true;
-    bool dragging;
+    public bool gazing =true;
+    public bool dragging;
     bool sentDragStart;
 	bool endDrag;
 
@@ -58,7 +58,12 @@ public class GazeInputManager : MonoBehaviour
 			GazeReceiver newFocused = GetFocusedReceiver (gestureRay);
 			if (endDrag) {
 				StopDragging (newFocused, gestureRay);
+                endDrag = false;
+                dragging = false;
+                gazing = true;
 			} else if (!sentDragStart) {
+
+                sentDragStart = true;
 				StartDragging (newFocused, gestureRay);
 			} else {
 				SetDragTarget (newFocused, gestureRay);
@@ -110,11 +115,13 @@ public class GazeInputManager : MonoBehaviour
 			gr.DragStart (ray);
 			focused = gr;
 		}
-	}
+        Debug.Log("gim start drag");
+    }
 
 	void SetDragTarget(GazeReceiver gr, Ray ray){
 
-		focused.Drag (ray);
+		if(focused!=null)focused.Drag(ray);
+        //Debug.Log("gim dragging");
 		/*
 		if (gr == null) {
 			if (focused != null) {
@@ -137,6 +144,7 @@ public class GazeInputManager : MonoBehaviour
 		if (focused != null) {
 			focused.DragEnd (ray);
 		}
+        Debug.Log("gim end drag");
 	}
 
     void SetGazeTarget(GazeReceiver gr, Ray ray)
@@ -155,6 +163,7 @@ public class GazeInputManager : MonoBehaviour
         }
         else
         {
+            Debug.Log("thinks gaze focused changing");
             if (focused != null)
             {
                 focused.GazeLeave(ray);
