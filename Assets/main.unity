@@ -1526,7 +1526,6 @@ GameObject:
   - component: {fileID: 720870353}
   - component: {fileID: 720870352}
   - component: {fileID: 720870351}
-  - component: {fileID: 720870355}
   - component: {fileID: 720870354}
   m_Layer: 0
   m_Name: TakeNewButton
@@ -1631,7 +1630,7 @@ MonoBehaviour:
   TappedEvent:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 720870355}
+      - m_Target: {fileID: 0}
         m_MethodName: SetMode_Capture
         m_Mode: 1
         m_Arguments:
@@ -1669,18 +1668,6 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: GazeReceiver+RayEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
---- !u!114 &720870355
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 720870349}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cc684b09bd3fb7243a6195aa76bf97f0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentMode: 1
 --- !u!1 &759765748
 GameObject:
   m_ObjectHideFlags: 0
@@ -2453,7 +2440,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 940620322}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 130af24833ea4ec4a9d9515a697b2f7b, type: 3}
   m_Name: 
@@ -2602,7 +2589,6 @@ GameObject:
   - component: {fileID: 971420995}
   - component: {fileID: 971420994}
   - component: {fileID: 971420993}
-  - component: {fileID: 971420992}
   - component: {fileID: 971420991}
   m_Layer: 0
   m_Name: TakeNewButton
@@ -2654,7 +2640,7 @@ MonoBehaviour:
   TappedEvent:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 971420992}
+      - m_Target: {fileID: 0}
         m_MethodName: SetMode_Capture
         m_Mode: 1
         m_Arguments:
@@ -2692,18 +2678,6 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: GazeReceiver+RayEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
---- !u!114 &971420992
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 971420989}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cc684b09bd3fb7243a6195aa76bf97f0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentMode: 1
 --- !u!23 &971420993
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -3787,7 +3761,6 @@ GameObject:
   - component: {fileID: 1863315243}
   - component: {fileID: 1863315242}
   - component: {fileID: 1863315241}
-  - component: {fileID: 1863315240}
   m_Layer: 0
   m_Name: ContinueButton
   m_TagString: Untagged
@@ -3809,18 +3782,6 @@ Transform:
   m_Father: {fileID: 759765749}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1863315240
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1863315238}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cc684b09bd3fb7243a6195aa76bf97f0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentMode: 1
 --- !u!114 &1863315241
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3850,7 +3811,7 @@ MonoBehaviour:
   TappedEvent:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1863315240}
+      - m_Target: {fileID: 0}
         m_MethodName: SetMode_Edit
         m_Mode: 1
         m_Arguments:

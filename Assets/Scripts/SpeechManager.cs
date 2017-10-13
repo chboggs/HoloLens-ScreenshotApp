@@ -40,6 +40,13 @@ public class SpeechManager : MonoBehaviour
 
         });
 
+        keywords.Add("Edit", () =>
+        {
+            Debug.Log("capture said");
+            GameObject.FindGameObjectWithTag("Controller").GetComponent<MainController>().SwitchToEdit();
+
+        });
+
 
         // Tell the KeywordRecognizer about our keywords.
         keywordRecognizer = new KeywordRecognizer(keywords.Keys.ToArray());

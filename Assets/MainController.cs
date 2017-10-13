@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -41,7 +42,14 @@ public class MainController : MonoBehaviour
     {
         Debug.Log("got photo");
         mm.SetMode(ModeManager.ModeManagerMode.Preview);
-        GameObject.FindGameObjectWithTag("PhotoFrame").GetComponent<Renderer>().material.mainTexture = photo;
+        try
+        {
+            GameObject.FindGameObjectWithTag("PictureFrame").GetComponent<Renderer>().material.mainTexture = photo;
+        }
+        catch (Exception e)
+        {
+            Debug.Log(e);
+        }
         currentImage = photo;
     }
 
@@ -69,10 +77,10 @@ public class MainController : MonoBehaviour
         if (mm.currentMode == ModeManager.ModeManagerMode.Preview)
         {
             editedImage = Instantiate(currentImage) as Texture2D;
-            mm.SetMode(ModeManager.ModeManagerMode.Capture);
+            mm.SetMode(ModeManager.ModeManagerMode.Edit);
             //set canvas with editedImage
-            GameObject.FindGameObjectWithTag("DrawCanvas").GetComponent<Renderer>().material.mainTexture = editedImage;
-            GameObject.FindGameObjectWithTag("DrawCanvas").GetComponent<DrawingCanvas>().tex = editedImage;
+            GameObject.FindGameObjectWithTag("Canvas").GetComponent<Renderer>().material.mainTexture = editedImage;
+            GameObject.FindGameObjectWithTag("Canvas").GetComponent<DrawingCanvas>().tex = editedImage;
         }
     }
 }
