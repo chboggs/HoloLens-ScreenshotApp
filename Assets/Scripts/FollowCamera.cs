@@ -8,12 +8,14 @@ public class FollowCamera : MonoBehaviour {
     public float AngularSpeed = 0.1f;
     public float Distance = 2;
 
-    float currentAngle = 0;
-    float desiredAngle = 0;
+    
+    public float currentAngle = 0;
+    public float desiredAngle = 0;
+
+    public float cam;
 
     GameObject cameraReference;
 
-    public float distance;
 
 	// Use this for initialization
 	void Start () {
@@ -22,17 +24,23 @@ public class FollowCamera : MonoBehaviour {
     private void Update()
     {
         Vector3 cameraDirection = Vector3.ProjectOnPlane(cameraReference.transform.forward, Vector3.up).normalized;
-        float cameraAngle = Mathf.Atan2(cameraDirection.y, cameraDirection.x);
+        float cameraAngle = Mathf.Atan2(cameraDirection.z, cameraDirection.x);
 
+        
         if(Mathf.Abs(DistanceBetweenAngles(cameraAngle, currentAngle) )> WaitAngle){
             desiredAngle = cameraAngle;
+            //Debug.Log("setting desired");
+        }
+        else
+        {
+            //Debug.LogFormat("camerangle: {0}, currentangle: {1}", cameraAngle, currentAngle);
         }
 
         currentAngle = BringAngleCloser(currentAngle, desiredAngle, AngularSpeed);
 
-        transform.position = cameraReference.transform.position + new Vector3(Mathf.Cos(currentAngle), Mathf.Sin(currentAngle), 0) * Distance;
+        transform.position = cameraReference.transform.position + new Vector3(Mathf.Cos(currentAngle),0, Mathf.Sin(currentAngle)) * Distance;
 
-        transform.Rotate(new Vector3(0, 0, currentAngle * Mathf.Rad2Deg));
+        transform.eulerAngles = new Vector3(0, 90-currentAngle * Mathf.Rad2Deg,0);
 
     }
 

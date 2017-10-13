@@ -29,14 +29,14 @@ public class SpeechManager : MonoBehaviour
         keywords.Add("Take Photo", () =>
         {
             Debug.Log("photo");
-            GameObject.FindGameObjectWithTag("PictureFrame").GetComponent<ImageGet>().Capture();
+            GameObject.FindGameObjectWithTag("Controller").GetComponent<MainController>().TakePhoto();
 
         });
 
         keywords.Add("Capture", () =>
         {
             Debug.Log("capture said");
-            GameObject.FindGameObjectWithTag("PictureFrame").GetComponent<ImageGet>().Capture();
+            GameObject.FindGameObjectWithTag("Controller").GetComponent<MainController>().SwitchToCapture();
 
         });
 

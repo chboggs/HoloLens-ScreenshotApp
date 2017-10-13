@@ -5,7 +5,7 @@ using UnityEngine;
 public class ModeManager : MonoBehaviour {
 
 	List<Record> records;
-	ModeManagerMode currentMode;
+	public ModeManagerMode currentMode = ModeManagerMode.Init;
 
 	// Use this for initialization
 	void Start () {
@@ -13,6 +13,7 @@ public class ModeManager : MonoBehaviour {
 		foreach (ModeAssigner assigner in assigners) {
 			Register (assigner.gameObject, assigner.mode);
 		}
+        Debug.Log("registered: " + records.Count.ToString());
 	}
 
 	public void Register(GameObject obj, ModeManagerMode mode){
@@ -21,14 +22,17 @@ public class ModeManager : MonoBehaviour {
 			records = new List<Record> ();
 		}
 		records.Add (new Record (obj, mode));
+        obj.SetActive(mode == ModeManagerMode.Init);
 
 	}
 
 	public void SetMode(ModeManagerMode mode){
 		if (currentMode == mode) {
+            Debug.Log("same mode");
 			return;
 		}
 		currentMode = mode;
+        Debug.Log("changing mode");
 		foreach (Record rec in records)
 		{
 			if (rec.mode == currentMode)
@@ -55,9 +59,42 @@ public class ModeManager : MonoBehaviour {
 
 	public enum ModeManagerMode{
 		All,
+        Init,
 		Capture,
 		Preview,
 		Edit,
+        Gallery,
 		Share
 	}
+
+
+    public void SetMode_Init()
+    {
+        SetMode(ModeManagerMode.Init);
+    }
+
+    public void SetMode_Capture()
+    {
+        SetMode(ModeManagerMode.Capture);
+    }
+
+    public void SetMode_Preview()
+    {
+        SetMode(ModeManagerMode.Preview);
+    }
+
+    public void SetMode_Edit()
+    {
+        SetMode(ModeManagerMode.Edit);
+    }
+
+    public void SetMode_Gallery()
+    {
+        SetMode(ModeManagerMode.Gallery);
+    }
+
+    public void SetMode_Share()
+    {
+        SetMode(ModeManagerMode.Share);
+    }
 }

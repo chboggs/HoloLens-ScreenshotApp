@@ -5,6 +5,11 @@ TagManager:
   serializedVersion: 2
   tags:
   - PictureFrame
+  - cube
+  - GallaryFrame
+  - DrawingFrame
+  - Canvas
+  - Controller
   layers:
   - Default
   - TransparentFX

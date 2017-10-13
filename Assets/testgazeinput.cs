@@ -12,13 +12,16 @@ public class testgazeinput : MonoBehaviour {
     }
     public void Dragged(Ray ray)
     {
+        Debug.DrawRay(ray.origin, ray.direction * 100);
         Debug.Log("dragged");
-        Debug.DrawRay(ray.origin, ray.direction);
         RaycastHit hit;
         if (Physics.Raycast(ray.origin, ray.direction, out hit))
         {
+            Debug.Log("hit!");
+            Debug.Log(hit.collider.gameObject.name);
             if (hit.collider.gameObject == gameObject)
-            {
+            {   
+                Debug.Log("hit self");
                 GameObject newcube = Instantiate(cube);
 
                 newcube.transform.position = hit.point;
