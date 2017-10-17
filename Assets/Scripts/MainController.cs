@@ -21,6 +21,13 @@ public class MainController : MonoBehaviour
         pc = GetComponent<PhotoCapturer>();
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            TakePhoto();
+        }
+    }
     public void TakePhoto()
     {
         Debug.Log("takephoto");
@@ -81,6 +88,14 @@ public class MainController : MonoBehaviour
             //set canvas with editedImage
             GameObject.FindGameObjectWithTag("Canvas").GetComponent<Renderer>().material.mainTexture = editedImage;
             GameObject.FindGameObjectWithTag("Canvas").GetComponent<DrawingCanvas>().tex = editedImage;
+        }
+    }
+
+    public void SwitchToGallery()
+    {
+        if (mm.currentMode == ModeManager.ModeManagerMode.Init || mm.currentMode == ModeManager.ModeManagerMode.Edit)
+        {
+            mm.SetMode(ModeManager.ModeManagerMode.Gallery);
         }
     }
 }

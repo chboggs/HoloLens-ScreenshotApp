@@ -121,7 +121,7 @@ GameObject:
   - component: {fileID: 18332393}
   m_Layer: 0
   m_Name: EditManager
-  m_TagString: Untagged
+  m_TagString: EditManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -413,7 +413,7 @@ TextMesh:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 108508999}
-  m_Text: keyboard
+  m_Text: Add Text
   m_OffsetZ: 0
   m_CharacterSize: 1
   m_LineSpacing: 1
@@ -521,12 +521,12 @@ MonoBehaviour:
   TappedEvent:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: 
+      - m_Target: {fileID: 18332393}
+        m_MethodName: Cancel
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -653,7 +653,7 @@ TextMesh:
 
     And
 
-    Continue'
+    Edit'
   m_OffsetZ: 0
   m_CharacterSize: 1
   m_LineSpacing: 1
@@ -766,7 +766,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 
+  m_Text: At any point in the app you can say the name of a button or tap on it
 --- !u!222 &202509319
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -787,7 +787,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &294292590
 Transform:
   m_ObjectHideFlags: 0
@@ -1679,10 +1679,9 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 679732296}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0.41, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 1011765424}
   - {fileID: 770043539}
   - {fileID: 849296666}
   m_Father: {fileID: 1955949897}
@@ -1886,8 +1885,8 @@ MonoBehaviour:
   TappedEvent:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 385668484}
-        m_MethodName: SetMode_Capture
+      - m_Target: {fileID: 385668486}
+        m_MethodName: SwitchToCapture
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1935,7 +1934,6 @@ GameObject:
   - component: {fileID: 759765753}
   - component: {fileID: 759765752}
   - component: {fileID: 759765751}
-  - component: {fileID: 759765750}
   m_Layer: 0
   m_Name: Plane
   m_TagString: PictureFrame
@@ -1956,18 +1954,6 @@ Transform:
   m_Father: {fileID: 2020881552}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 180, z: 0}
---- !u!114 &759765750
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 759765748}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 130af24833ea4ec4a9d9515a697b2f7b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  targetTexture: {fileID: 0}
 --- !u!23 &759765751
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -2116,12 +2102,12 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 770043538}
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0.7071068, w: 0}
-  m_LocalPosition: {x: -0.9600002, y: -0.30000004, z: 0}
+  m_LocalPosition: {x: -0.9600002, y: -0.2, z: 0}
   m_LocalScale: {x: 0.026666727, y: 0.045000054, z: 0.020000024}
   m_Children:
   - {fileID: 681700878}
   m_Father: {fileID: 679732297}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &770043540
 MonoBehaviour:
@@ -2152,12 +2138,12 @@ MonoBehaviour:
   TappedEvent:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: 
+      - m_Target: {fileID: 18332393}
+        m_MethodName: StartCrop
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -2326,6 +2312,46 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!1 &825585746
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 825585747}
+  - component: {fileID: 825585748}
+  m_Layer: 0
+  m_Name: GalleryController
+  m_TagString: GallaryController
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &825585747
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 825585746}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1014558244}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &825585748
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 825585746}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51fcdf92a84ef45448dd842f83a5a16d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &849296665
 GameObject:
   m_ObjectHideFlags: 0
@@ -2352,12 +2378,12 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 849296665}
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0.7071068, w: 0}
-  m_LocalPosition: {x: -0.9600002, y: 0.30000004, z: 0}
+  m_LocalPosition: {x: -0.9600002, y: 0.2, z: 0}
   m_LocalScale: {x: 0.026666766, y: 0.04500011, z: 0.02000004}
   m_Children:
   - {fileID: 806143221}
   m_Father: {fileID: 679732297}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &849296667
 MonoBehaviour:
@@ -2388,12 +2414,12 @@ MonoBehaviour:
   TappedEvent:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 18332391}
-        m_MethodName: 
+      - m_Target: {fileID: 18332393}
+        m_MethodName: StartDraw
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -2692,7 +2718,7 @@ Transform:
   m_GameObject: {fileID: 940620322}
   m_LocalRotation: {x: 0, y: 0.7071068, z: -0.7071068, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.16, y: 0.9, z: 0.09}
+  m_LocalScale: {x: 0.16, y: 0.2, z: 0.09}
   m_Children: []
   m_Father: {fileID: 1955949897}
   m_RootOrder: 0
@@ -2708,8 +2734,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 352d6a73433c1fd4a92d3afb13811955, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  x: 5
-  y: 5
+  Canvasdimx: 5
+  Canvasdimy: 5
   UpperCube: {fileID: 0}
   LowerCube: {fileID: 0}
   CubePrefab: {fileID: 1280676211773320, guid: aab46e98161c12549bdc7184566a8835, type: 2}
@@ -2746,7 +2772,18 @@ MonoBehaviour:
       PublicKeyToken=null
   DragStartEvent:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 18332393}
+        m_MethodName: StartDragging
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: GazeReceiver+RayEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
   DragEndEvent:
@@ -2919,8 +2956,8 @@ MonoBehaviour:
   TappedEvent:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 385668484}
-        m_MethodName: SetMode_Capture
+      - m_Target: {fileID: 385668486}
+        m_MethodName: SwitchToCapture
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3010,159 +3047,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 971420989}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &1011765423
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 1011765424}
-  - component: {fileID: 1011765428}
-  - component: {fileID: 1011765427}
-  - component: {fileID: 1011765426}
-  - component: {fileID: 1011765425}
-  m_Layer: 0
-  m_Name: TextButton
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1011765424
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1011765423}
-  m_LocalRotation: {x: -0, y: 0.7071068, z: -0.7071068, w: 0}
-  m_LocalPosition: {x: -0.9600002, y: 0, z: 0}
-  m_LocalScale: {x: 0.026666727, y: 0.045000054, z: 0.020000024}
-  m_Children:
-  - {fileID: 1124564134}
-  m_Father: {fileID: 679732297}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1011765425
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1011765423}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 00135ea01aa87b24ab0e6097b9ea812d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GazeEnterEvent:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: GazeReceiver+RayEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
-  GazeEvent:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: GazeReceiver+RayEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
-  GazeLeaveEvent:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: GazeReceiver+RayEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
-  TappedEvent:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: 
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_TypeName: GazeReceiver+RayEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
-  DragStartEvent:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: GazeReceiver+RayEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
-  DragEndEvent:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: GazeReceiver+RayEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
-  DragEvent:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: GazeReceiver+RayEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
-  DragEnterEvent:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: GazeReceiver+RayEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
-  DragLeaveEvent:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: GazeReceiver+RayEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
---- !u!23 &1011765426
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1011765423}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_PreserveUVs: 1
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
---- !u!64 &1011765427
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1011765423}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Convex: 0
-  m_InflateMesh: 0
-  m_SkinWidth: 0.01
-  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
---- !u!33 &1011765428
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1011765423}
-  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &1014558243
 GameObject:
   m_ObjectHideFlags: 0
@@ -3194,6 +3078,7 @@ Transform:
   - {fileID: 1262879235}
   - {fileID: 92256001}
   - {fileID: 720870350}
+  - {fileID: 825585747}
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3226,89 +3111,6 @@ MonoBehaviour:
   currentAngle: 0
   desiredAngle: 0
   cam: 0
---- !u!1 &1124564133
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 1124564134}
-  - component: {fileID: 1124564136}
-  - component: {fileID: 1124564135}
-  m_Layer: 0
-  m_Name: Text (1)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1124564134
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1124564133}
-  m_LocalRotation: {x: -0, y: 0.7071068, z: -0.7071068, w: 0}
-  m_LocalPosition: {x: 0, y: 0.01, z: -0.01}
-  m_LocalScale: {x: 1.000124, y: 0.9999994, z: 0.9999993}
-  m_Children: []
-  m_Father: {fileID: 1011765424}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 90, y: 180, z: 0}
---- !u!102 &1124564135
-TextMesh:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1124564133}
-  m_Text: Text
-  m_OffsetZ: 0
-  m_CharacterSize: 1
-  m_LineSpacing: 1
-  m_Anchor: 4
-  m_Alignment: 1
-  m_TabSize: 0
-  m_FontSize: 25
-  m_FontStyle: 0
-  m_RichText: 1
-  m_Font: {fileID: 12800000, guid: 6cde5e0d6240d404ca0fea7abf8ff17d, type: 3}
-  m_Color:
-    serializedVersion: 2
-    rgba: 4278190335
---- !u!23 &1124564136
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1124564133}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_Materials:
-  - {fileID: 2100000, guid: e84712a90ee41d541a7f344f786156cd, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
 --- !u!1 &1149595755
 GameObject:
   m_ObjectHideFlags: 0
@@ -3371,8 +3173,8 @@ MonoBehaviour:
   TappedEvent:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 385668484}
-        m_MethodName: SetMode_Capture
+      - m_Target: {fileID: 385668486}
+        m_MethodName: SwitchToCapture
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3878,8 +3680,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1370207016}
   m_LocalRotation: {x: 0, y: 0.7071068, z: -0.7071068, w: 0}
-  m_LocalPosition: {x: 0.14, y: -0, z: -0.25}
-  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
+  m_LocalPosition: {x: -0.008, y: -0.739, z: -0.25}
+  m_LocalScale: {x: 0.16, y: 0.16, z: 0.05}
   m_Children:
   - {fileID: 108509000}
   m_Father: {fileID: 1955949897}
@@ -4083,7 +3885,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 
+  m_Text: Say "Capture Photo" to take image
 --- !u!222 &1418427076
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4674,8 +4476,8 @@ MonoBehaviour:
   TappedEvent:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 385668484}
-        m_MethodName: SetMode_Capture
+      - m_Target: {fileID: 385668486}
+        m_MethodName: SwitchToCapture
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4827,8 +4629,8 @@ MonoBehaviour:
   TappedEvent:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 385668484}
-        m_MethodName: SetMode_Edit
+      - m_Target: {fileID: 385668486}
+        m_MethodName: SwitchToEdit
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5128,12 +4930,12 @@ MonoBehaviour:
   TappedEvent:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: 
+      - m_Target: {fileID: 18332393}
+        m_MethodName: Apply
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -5437,7 +5239,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   WaitAngle: 0.7853982
   AngularSpeed: 0.05
-  Distance: 2
+  Distance: 4
   currentAngle: 0
   desiredAngle: 0
   cam: 0

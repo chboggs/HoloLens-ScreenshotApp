@@ -26,24 +26,80 @@ public class SpeechManager : MonoBehaviour
 
 
 
-        keywords.Add("Take Photo", () =>
+        keywords.Add("Capture Photo", () =>
         {
             Debug.Log("photo");
             GameObject.FindGameObjectWithTag("Controller").GetComponent<MainController>().TakePhoto();
 
         });
 
-        keywords.Add("Capture", () =>
+        keywords.Add("Take New Photo", () =>
         {
-            Debug.Log("capture said");
+            Debug.Log("Take New Photo said");
             GameObject.FindGameObjectWithTag("Controller").GetComponent<MainController>().SwitchToCapture();
 
         });
 
-        keywords.Add("Edit", () =>
+        keywords.Add("Save and Edit", () =>
         {
-            Debug.Log("capture said");
+            Debug.Log("Edit said");
             GameObject.FindGameObjectWithTag("Controller").GetComponent<MainController>().SwitchToEdit();
+
+        });
+
+        keywords.Add("To Gallery", () =>
+        {
+            Debug.Log("To Gallery said");
+            GameObject.FindGameObjectWithTag("Controller").GetComponent<MainController>().SwitchToGallery();
+
+        });
+
+        keywords.Add("Draw", () =>
+        {
+            Debug.Log("Draw said");
+            GameObject.FindGameObjectWithTag("EditManager").GetComponent<EditManagerScript>().StartDraw();
+
+        });
+
+        keywords.Add("Crop", () =>
+        {
+            Debug.Log("Crop said");
+            GameObject.FindGameObjectWithTag("EditManager").GetComponent<EditManagerScript>().StartCrop();
+
+        });
+
+        keywords.Add("Apply", () =>
+        {
+            Debug.Log("Apply said");
+            GameObject.FindGameObjectWithTag("EditManager").GetComponent<EditManagerScript>().Apply();
+
+        });
+
+        keywords.Add("Cancel", () =>
+        {
+            Debug.Log("Cancel said");
+            GameObject.FindGameObjectWithTag("EditManager").GetComponent<EditManagerScript>().Cancel();
+
+        });
+
+        keywords.Add("Save and Share", () =>
+        {
+            Debug.Log("Save and share said");
+            GameObject.FindGameObjectWithTag("DrawingCanvas").GetComponent<ImageUploader>().StartUpload();
+
+        });
+
+        keywords.Add("Back", () =>
+        {
+            Debug.Log("Back said");
+            GameObject.FindGameObjectWithTag("GalleryController").GetComponent<GalleryControllerScript>().Back();
+
+        });
+
+        keywords.Add("Next", () =>
+        {
+            Debug.Log("Next said");
+            GameObject.FindGameObjectWithTag("GalleryController").GetComponent<GalleryControllerScript> ().Next();
 
         });
 
