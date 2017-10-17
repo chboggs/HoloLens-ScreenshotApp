@@ -23,7 +23,7 @@ public class GazeReceiver : MonoBehaviour {
 
     public void GazeEnter(Ray gaze)
     {
-        Debug.Log("enter");
+        //Debug.Log("enter");
         if (GazeEnterEvent != null) GazeEnterEvent.Invoke(gaze);
     }
     public void Gaze(Ray gaze)
@@ -33,13 +33,13 @@ public class GazeReceiver : MonoBehaviour {
 
     public void GazeLeave(Ray gaze)
     {
-        Debug.Log("leave");
+        //Debug.Log("leave");
 		if (GazeLeaveEvent != null) GazeLeaveEvent.Invoke(gaze);
     }
 
     public void Tapped(Ray gaze)
     {
-        Debug.Log("tap received");
+        //Debug.Log("tap received");
 		if (TappedEvent != null) TappedEvent.Invoke(gaze);
     }
 

@@ -50,7 +50,7 @@ public class ImageGet : MonoBehaviour
 
     void OnCapturedPhotoToMemory(PhotoCapture.PhotoCaptureResult result, PhotoCaptureFrame photoCaptureFrame)
     {
-        Debug.Log("oncapturedphototomemory");
+        //Debug.Log("oncapturedphototomemory");
         // Copy the raw image data into the target texture
         photoCaptureFrame.UploadImageDataToTexture(targetTexture);
       
@@ -77,7 +77,7 @@ public class ImageGet : MonoBehaviour
         // Shutdown the photo capture resource
         photoCaptureObject.Dispose();
         photoCaptureObject = null;
-        Debug.Log("disposed of photo");
+        //Debug.Log("disposed of photo");
         taking = false;
     }
 
@@ -88,7 +88,7 @@ public class ImageGet : MonoBehaviour
         //photoCaptureObject.TakePhotoAsync(OnCapturedPhotoToMemory);
         //photoCaptureObject.TakePhotoAsync("file",PhotoCaptureFileOutputFormat.JPG);
         //gameObject.GetComponent<Renderer>().material.mainTexture = targetTexture;
-        Debug.Log("photo is null: " + (photoCaptureObject == null).ToString());
+        //Debug.Log("photo is null: " + (photoCaptureObject == null).ToString());
         if (taking == false)
         {
             TakePhoto();

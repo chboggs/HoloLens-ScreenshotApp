@@ -88,9 +88,11 @@ public class GazeInputManager : MonoBehaviour
 
     public void TapHandler(InteractionSourceKind source, int tapCount, Ray headRay)
     {
-        Debug.Log("tip tap");
+        //Debug.Log("tip tap");
+        
         if (focused != null)
         {
+            Debug.Log("tapped: " + focused.name);
             focused.Tapped(headRay);
         }
     }
@@ -187,7 +189,7 @@ void SetGazeTarget(GazeReceiver gr, Ray ray)
     }
     else
     {
-        Debug.Log("thinks gaze focused changing");
+        //Debug.Log("thinks gaze focused changing");
         if (focused != null)
         {
             focused.GazeLeave(ray);
