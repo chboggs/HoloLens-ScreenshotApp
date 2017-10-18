@@ -225,6 +225,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CubePrefab: {fileID: 1280676211773320, guid: aab46e98161c12549bdc7184566a8835, type: 2}
+  drawing: 0
+  cropping: 0
 --- !u!1 &69456247
 GameObject:
   m_ObjectHideFlags: 0
@@ -5311,7 +5313,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1675282211}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5df64f40fc464e74bb8a10e9bc4e0b4d, type: 3}
   m_Name: 
