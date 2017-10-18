@@ -1,4 +1,0 @@
-C:\Users\Cody\source\repos\ScreenshotTool\ScreenshotTool\Alpha_Build\GeneratedProjects\UWP\Assembly-CSharp\Assembly-CSharp.csproj;x86
-C:\Users\Cody\source\repos\ScreenshotTool\ScreenshotTool\Alpha_Build\GeneratedProjects\UWP\Assembly-CSharp-firstpass\Assembly-CSharp-firstpass.csproj;x86
-C:\Users\Cody\source\repos\ScreenshotTool\ScreenshotTool\Alpha_Build\GeneratedProjects\UWP\Assembly-CSharp-firstpass\Assembly-CSharp-firstpass.csproj;x86
-C:\Users\Cody\source\repos\ScreenshotTool\ScreenshotTool\Alpha_Build\ScreenshotTool\ScreenshotTool.csproj;x86
