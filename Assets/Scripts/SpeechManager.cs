@@ -9,51 +9,43 @@ public class SpeechManager : MonoBehaviour
     KeywordRecognizer keywordRecognizer = null;
     Dictionary<string, System.Action> keywords = new Dictionary<string, System.Action>();
 
+    MainController mc;
+
     // Use this for initialization
     void Start()
     {
-        keywords.Add("Reset world", () =>
-        {
-            // Call the OnReset method on every descendant object.
-            this.BroadcastMessage("OnReset");
-        });
-
+        mc = GameObject.FindGameObjectWithTag("Controller").GetComponent<MainController>();
         keywords.Add("Test", () =>
         {
             // Call the OnReset method on every descendant object.
             Debug.Log("test");
         });
-
-
-
+        
         keywords.Add("Capture Photo", () =>
         {
             Debug.Log("photo");
-            GameObject.FindGameObjectWithTag("Controller").GetComponent<MainController>().TakePhoto();
-
+            mc.TakePhoto();
         });
 
         keywords.Add("Take New Photo", () =>
         {
             Debug.Log("Take New Photo said");
-            GameObject.FindGameObjectWithTag("Controller").GetComponent<MainController>().SwitchToCapture();
-
+            mc.SwitchToCapture();
         });
 
         keywords.Add("Save and Edit", () =>
         {
             Debug.Log("Edit said");
-            GameObject.FindGameObjectWithTag("Controller").GetComponent<MainController>().SwitchToEdit();
-
+            mc.SwitchToEdit();
         });
-
+        /*
         keywords.Add("To Gallery", () =>
         {
             Debug.Log("To Gallery said");
             GameObject.FindGameObjectWithTag("Controller").GetComponent<MainController>().SwitchToGallery();
 
         });
-
+        */
         keywords.Add("Draw", () =>
         {
             Debug.Log("Draw said");
@@ -71,14 +63,14 @@ public class SpeechManager : MonoBehaviour
         keywords.Add("Apply", () =>
         {
             Debug.Log("Apply said");
-            GameObject.FindGameObjectWithTag("EditManager").GetComponent<EditManagerScript>().Apply();
+            GameObject.FindGameObjectWithTag("EditManager").GetComponent<EditManagerScript>().ApplyCrop();
 
         });
 
         keywords.Add("Cancel", () =>
         {
             Debug.Log("Cancel said");
-            GameObject.FindGameObjectWithTag("EditManager").GetComponent<EditManagerScript>().Cancel();
+            GameObject.FindGameObjectWithTag("EditManager").GetComponent<EditManagerScript>().CancelCrop();
 
         });
 
@@ -99,8 +91,27 @@ public class SpeechManager : MonoBehaviour
         keywords.Add("Next", () =>
         {
             Debug.Log("Next said");
-            GameObject.FindGameObjectWithTag("GalleryController").GetComponent<GalleryControllerScript> ().Next();
+            GameObject.FindGameObjectWithTag("GalleryController").GetComponent<GalleryControllerScript>().Next();
 
+        });
+
+        keywords.Add("Add caption", () =>
+        {
+            Debug.Log("adding caption");
+            GameObject.FindObjectOfType<TakeTextInput>().TakeKeyboardInput();
+
+        });
+
+        keywords.Add("Edit caption", () =>
+        {
+            Debug.Log("adding caption");
+            GameObject.FindObjectOfType<TakeTextInput>().TakeKeyboardInput();
+        });
+
+        keywords.Add("Help", () =>
+        {
+            Debug.Log("adding caption");
+            mc.SwitchToHelp();
         });
 
 

@@ -15,6 +15,12 @@ public class PhotoCapturer : MonoBehaviour
 
     public void StartTakePhoto(MainController mci)
     {
+        if (taking)
+        {
+            return;
+        }
+        taking = true;
+
         Debug.Log("starting to take photo");
         mc = mci;
         Resolution cameraResolution = PhotoCapture.SupportedResolutions.OrderByDescending((res) => res.width * res.height).First();

@@ -21,7 +21,7 @@ public class GazeInputManager : MonoBehaviour
     Vector3 dragChange;
 
     GameObject gestPos;
-    public GameObject cube;
+    //public GameObject cube;
     Vector3 dragDirectionFromCamera;
 
     public float DragStartDistance = 0.5f;
@@ -121,9 +121,15 @@ public class GazeInputManager : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(cameraLocation, cameraDirection, out hit))
         {
+            cursor.SetActive(true);
             cursor.transform.position = hit.point;
             cursor.transform.up = hit.normal;
             return hit.collider.gameObject.GetComponent<GazeReceiver>();
+        }
+        else
+        {
+            cursor.transform.position = cameraLocation + cameraDirection.normalized * 5;
+            cursor.transform.up = cameraDirection;
         }
         return null;
     }

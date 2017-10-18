@@ -12,14 +12,15 @@ public class CropCanvas : MonoBehaviour
     public GameObject LowerCube;
 
     bool upperCubeDragging;
-    public GameObject CubePrefab;
-    // Use this for initialization
+    public GameObject CubePrefab;    
 
-
-
-    public void MakeCubes()
+    public void StartCrop()
     {
         tex = GetComponent<MeshRenderer>().material.mainTexture as Texture2D;
+
+        if (UpperCube != null) Destroy(UpperCube);
+        if (LowerCube != null) Destroy(LowerCube);
+
         UpperCube = Instantiate(CubePrefab);
         LowerCube = Instantiate(CubePrefab);
         UpperCube.transform.parent = transform;
@@ -62,7 +63,7 @@ public class CropCanvas : MonoBehaviour
 
             //Debug.LogFormat("dragging at {0},{1}", hitcoord.x, hitcoord.y);
             GameObject cube = (upperCubeDragging) ? UpperCube : LowerCube;
-            cube.transform.localPosition = new Vector3(PixelXToLocX(hitcoord.x * tex.width), 0, PixelYToLocY(hitcoord.y * tex.height));
+            cube.transform.localPosition = new Vector3(PixelToLocX(hitcoord.x * tex.width), 0, PixelToLocY(hitcoord.y * tex.height));
         }
     }
 
@@ -76,10 +77,10 @@ public class CropCanvas : MonoBehaviour
         Debug.LogFormat("{0},{1}", UpperCube.transform.localPosition.x, UpperCube.transform.localPosition.z);
         Debug.Log("apply");
 
-        int upperx = Mathf.FloorToInt(((5 - UpperCube.transform.localPosition.x) / 10) * tex.width);
-        int lowerx = Mathf.FloorToInt(((5 - LowerCube.transform.localPosition.x) / 10) * tex.width);
-        int uppery = Mathf.FloorToInt(((5 - UpperCube.transform.localPosition.z) / 10) * tex.height);
-        int lowery = Mathf.FloorToInt(((5 - LowerCube.transform.localPosition.z) / 10) * tex.height);
+        int upperx = LocToPixelX( UpperCube.transform.localPosition.x);
+        int lowerx = LocToPixelX(LowerCube.transform.localPosition.x);
+        int uppery = LocToPixelY( UpperCube.transform.localPosition.z);
+        int lowery = LocToPixelY(LowerCube.transform.localPosition.z);
 
         Debug.Log("1");
 
@@ -95,7 +96,6 @@ public class CropCanvas : MonoBehaviour
 
         Debug.LogFormat("min: {0},{1}, dim:{2},{3}", minx, miny, newwidth, newheight);
 
-
         Color[] pixel = tex.GetPixels(minx, miny, newwidth, newheight, 0);
 
         Texture2D newtex = new Texture2D(newwidth, newheight);
@@ -105,21 +105,21 @@ public class CropCanvas : MonoBehaviour
         Cancel();
     }
 
-    int XLocToPixelX(float x)
+    int LocToPixelX(float x)
     {
         return Mathf.FloorToInt(((Canvasdimx - x) / (Canvasdimx * 2)) * tex.width);
     }
-    int YLocToPixelY(float y)
+    int LocToPixelY(float y)
     {
         return Mathf.FloorToInt(((Canvasdimy - y) / (Canvasdimy * 2)) * tex.height);
     }
 
-    float PixelXToLocX(float x)
+    float PixelToLocX(float x)
     {
         return -(x / tex.width * (Canvasdimx * 2) - Canvasdimx);
     }
 
-    float PixelYToLocY(float y)
+    float PixelToLocY(float y)
     {
         return -(y / tex.height * (Canvasdimy * 2) - Canvasdimy);
     }

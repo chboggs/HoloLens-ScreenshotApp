@@ -7,15 +7,13 @@ public class FollowCamera : MonoBehaviour {
     public float WaitAngle = Mathf.PI/4;
     public float AngularSpeed = 0.1f;
     public float Distance = 2;
-
     
     public float currentAngle = 0;
     public float desiredAngle = 0;
 
-    public float cam;
+    //public float cam;
 
     GameObject cameraReference;
-
 
 	// Use this for initialization
 	void Start () {
@@ -25,7 +23,6 @@ public class FollowCamera : MonoBehaviour {
     {
         Vector3 cameraDirection = Vector3.ProjectOnPlane(cameraReference.transform.forward, Vector3.up).normalized;
         float cameraAngle = Mathf.Atan2(cameraDirection.z, cameraDirection.x);
-
         
         if(Mathf.Abs(DistanceBetweenAngles(cameraAngle, currentAngle) )> WaitAngle){
             desiredAngle = cameraAngle;

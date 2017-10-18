@@ -5,16 +5,13 @@ using UnityEngine;
 
 public class MainController : MonoBehaviour
 {
-
     ModeManager mm;
 
     Texture2D currentImage;
     Texture2D editedImage;
 
     PhotoCapturer pc;
-
-
-    // Use this for initialization
+    
     void Start()
     {
         mm = GetComponent<ModeManager>();
@@ -28,21 +25,18 @@ public class MainController : MonoBehaviour
             TakePhoto();
         }
     }
+
     public void TakePhoto()
     {
-        Debug.Log("takephoto");
         if (mm.currentMode != ModeManager.ModeManagerMode.Capture)
         {
-            Debug.Log("not in correct mode");
+            Debug.Log("not in capture mode");
             return;
         }
-        //take photo
-        //currentImage = ****
 
         Debug.Log("start take photo");
 
-        pc.StartTakePhoto(this);        
-
+        pc.StartTakePhoto(this);
     }
 
     public void GetPhoto(Texture2D photo)
@@ -62,26 +56,14 @@ public class MainController : MonoBehaviour
 
     public void SwitchToCapture()
     {
-        /*
-        if(currentMode == ModeManager.ModeManagerMode.Preview)
-        {
-            */
-        //throwing out image
         currentImage = null;
         editedImage = null;
         mm.SetMode(ModeManager.ModeManagerMode.Capture);
-        /*
-        }
-        else if(currentMode == ModeManager.ModeManagerMode.Edit)
-        {
-            currentImage = null;
-
-        }
-        */
     }
+
     public void SwitchToEdit()
     {
-        if (mm.currentMode == ModeManager.ModeManagerMode.Preview)
+        if (mm.currentMode == ModeManager.ModeManagerMode.Preview || mm.currentMode == ModeManager.ModeManagerMode.Help)
         {
             editedImage = Instantiate(currentImage) as Texture2D;
             mm.SetMode(ModeManager.ModeManagerMode.Edit);
@@ -91,8 +73,14 @@ public class MainController : MonoBehaviour
         }
     }
 
+    public void SwitchToHelp()
+    {
+        mm.SetMode(ModeManager.ModeManagerMode.Help);
+    }
+
     public void SwitchToGallery()
     {
+
         if (mm.currentMode == ModeManager.ModeManagerMode.Init || mm.currentMode == ModeManager.ModeManagerMode.Edit)
         {
             mm.SetMode(ModeManager.ModeManagerMode.Gallery);

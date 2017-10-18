@@ -5,53 +5,62 @@ using UnityEngine;
 public class EditManagerScript : MonoBehaviour {
 
     DrawingCanvas dc;
+    CropCanvas cc;
+
     GameObject UpperCube;
     GameObject LowerCube;
     public GameObject CubePrefab;
-    CropCanvas cc;
+
+    GameObject TLButtons;
+    GameObject CropButtons;
 
     bool drawing;
     bool cropping;
+
     // Use this for initialization
 	void Start () {
         drawing = false;
         cropping = false;
         cc = FindObjectOfType<CropCanvas>();
         dc = FindObjectOfType<DrawingCanvas>();
-        GameObject.FindGameObjectWithTag("CroppingButtons").SetActive(false);
+        CropButtons = GameObject.FindGameObjectWithTag("CroppingButtons");
+        TLButtons= GameObject.FindGameObjectWithTag("TopLevelButtons");
+        CropButtons.SetActive(false);
     }
 
     public void StartDraw()
     {
         drawing = true;
         cropping = false;
+        dc.StartDraw();
     }
 
     public void StartCrop()
     {
         cropping = true;
         drawing = false;
-        dc.GetComponent<CropCanvas>().MakeCubes();
+        dc.GetComponent<CropCanvas>().StartCrop();
 
-        GameObject.FindGameObjectWithTag("CroppingButtons").SetActive(true);
-        GameObject.FindGameObjectWithTag("TopLevelButtons").SetActive(false);
+        CropButtons.SetActive(true);
+        TLButtons.SetActive(false);
 
     }
 
-    public void Apply()
+    public void ApplyCrop()
     {
         cropping = false;
-        dc.GetComponent<CropCanvas>().Apply();
+        cc.Apply();
         GameObject.FindGameObjectWithTag("CroppingButtons").SetActive(false);
         GameObject.FindGameObjectWithTag("TopLevelButtons").SetActive(true);
     }
 
-    public void Cancel()
+    public void CancelCrop()
     {
         cropping = false;
-        dc.GetComponent<CropCanvas>().Cancel();
+        cc.Cancel();
         GameObject.FindGameObjectWithTag("CroppingButtons").SetActive(false);
         GameObject.FindGameObjectWithTag("TopLevelButtons").SetActive(true);
+        dc.StartDraw();
     }
 
     public void StartDragging(Ray r)

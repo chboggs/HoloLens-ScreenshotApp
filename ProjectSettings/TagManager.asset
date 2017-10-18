@@ -12,6 +12,10 @@ TagManager:
   - Controller
   - EditManager
   - GallaryController
+  - CroppingButtons
+  - TopLevelButtons
+  - CaptionText
+  - MessageText
   layers:
   - Default
   - TransparentFX

@@ -5,14 +5,13 @@ using System;
 
 public class TakeTextInput : MonoBehaviour {
     UnityEngine.TouchScreenKeyboard keyboard;
-    public static string keyboardText = "";
-
+    public string KeyBoardText = "";
 
     public void TakeKeyboardInput()
     {
         try
         {
-            keyboard = TouchScreenKeyboard.Open("starttexxt", TouchScreenKeyboardType.Default, false, true, false, false);
+            keyboard = TouchScreenKeyboard.Open(KeyBoardText, TouchScreenKeyboardType.Default, false, true, false, false);
         }
         catch(Exception e)
         {
@@ -26,10 +25,18 @@ public class TakeTextInput : MonoBehaviour {
         {
             if (keyboard.done == true)
             {
-                keyboardText = keyboard.text;
+                KeyBoardText = keyboard.text;
                 keyboard = null;
-                Debug.Log("you typed: '" + keyboardText + "'");
-                GetComponentInChildren<TextMesh>().text = keyboardText;
+                Debug.Log("you typed: '" + KeyBoardText + "'");
+                //GetComponentInChildren<Text>().text = keyboardText;
+                if (KeyBoardText.Length != 0)
+                {
+                    GetComponentInChildren<TextMesh>().text = "Edit Caption";
+                }
+                else
+                {
+                    GetComponentInChildren<TextMesh>().text = "Add Caption";
+                }
             }
         }
     }
