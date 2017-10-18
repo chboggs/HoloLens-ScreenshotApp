@@ -14,18 +14,19 @@ public class EditManagerScript : MonoBehaviour {
     GameObject TLButtons;
     GameObject CropButtons;
 
-    bool drawing;
-    bool cropping;
+    public bool drawing;
+    public bool cropping;
 
     // Use this for initialization
 	void Start () {
-        drawing = false;
+        drawing = true;
         cropping = false;
         cc = FindObjectOfType<CropCanvas>();
         dc = FindObjectOfType<DrawingCanvas>();
         CropButtons = GameObject.FindGameObjectWithTag("CroppingButtons");
         TLButtons= GameObject.FindGameObjectWithTag("TopLevelButtons");
         CropButtons.SetActive(false);
+        StartDraw();
     }
 
     public void StartDraw()
@@ -50,17 +51,18 @@ public class EditManagerScript : MonoBehaviour {
     {
         cropping = false;
         cc.Apply();
-        GameObject.FindGameObjectWithTag("CroppingButtons").SetActive(false);
-        GameObject.FindGameObjectWithTag("TopLevelButtons").SetActive(true);
+        CropButtons.SetActive(false);
+        TLButtons.SetActive(true);
+        StartDraw();
     }
 
     public void CancelCrop()
     {
         cropping = false;
         cc.Cancel();
-        GameObject.FindGameObjectWithTag("CroppingButtons").SetActive(false);
-        GameObject.FindGameObjectWithTag("TopLevelButtons").SetActive(true);
-        dc.StartDraw();
+        CropButtons.SetActive(false);
+        TLButtons.SetActive(true);
+        StartDraw();
     }
 
     public void StartDragging(Ray r)

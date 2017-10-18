@@ -63,24 +63,25 @@ public class GazeInputManager : MonoBehaviour
         {
             dragDirectionFromCamera = (dragStartLocation + dragChange) - cameraLocation;
             Ray gestureRay = new Ray(cameraLocation, dragDirectionFromCamera);
+            Debug.DrawRay(gestureRay.origin, gestureRay.direction, Color.cyan); 
             //gestPos.transform.position = dragStartLocation + dragChange;
-            GazeReceiver newFocused = GetFocusedReceiver(gestureRay);
             if (endDrag)
             {
-                StopDragging(newFocused, gestureRay);
+                StopDragging(focused, gestureRay);
                 endDrag = false;
                 dragging = false;
                 gazing = true;
             }
             else if (!sentDragStart)
             {
-
+                GazeReceiver newFocused = GetFocusedReceiver(gestureRay);
+                if (newFocused != null) Debug.Log("Dragging on " + newFocused.gameObject.name);
                 sentDragStart = true;
                 StartDragging(newFocused, gestureRay);
             }
             else
             {
-                SetDragTarget(newFocused, gestureRay);
+                if (focused != null) focused.Drag(gestureRay);
             }
         }
 
@@ -88,8 +89,8 @@ public class GazeInputManager : MonoBehaviour
 
     public void TapHandler(InteractionSourceKind source, int tapCount, Ray headRay)
     {
-        //Debug.Log("tip tap");
-        
+        Debug.Log("tip tap");
+
         if (focused != null)
         {
             Debug.Log("tapped: " + focused.name);
@@ -140,68 +141,46 @@ public class GazeInputManager : MonoBehaviour
         dragStartLocation = cameraLocation + cameraDirection.normalized * DragStartDistance;
         if (gr != null)
         {
-            gr.DragStart(ray);            
+            gr.DragStart(ray);
         }
         focused = gr;
-    
-    //Debug.Log("gim start drag");
+
+        //Debug.Log("gim start drag");
     }
 
-void SetDragTarget(GazeReceiver gr, Ray ray)
-{
 
-    if (focused != null) focused.Drag(ray);
-    //Debug.Log("gim dragging");
-    /*
-    if (gr == null) {
-        if (focused != null) {
-            focused.DragLeave(ray);
-        }
-        focused = null;
-    } else if (gr == focused) {
-        gr.Drag (ray);
-    } else {
-        if (focused != null) {
-            focused.DragLeave(ray);
-        }
-        focused = gr;
-        focused.DragEnter();
-    }
-    */
-}
-
-void StopDragging(GazeReceiver gr, Ray ray)
-{
-    if (focused != null)
-    {
-        focused.DragEnd(ray);
-    }
-    //Debug.Log("gim end drag");
-}
-
-void SetGazeTarget(GazeReceiver gr, Ray ray)
-{
-    if (gr == null)
+    void StopDragging(GazeReceiver gr, Ray ray)
     {
         if (focused != null)
         {
-            focused.GazeLeave(ray);
+            focused.DragEnd(ray);
         }
-        focused = null;
+        //Debug.Log("gim end drag");
     }
-    else if (gr == focused)
+
+    void SetGazeTarget(GazeReceiver gr, Ray ray)
     {
-        gr.Gaze(ray);
-    }
-    else
-    {
-        //Debug.Log("thinks gaze focused changing");
-        if (focused != null)
+        if (gr == null)
         {
-            focused.GazeLeave(ray);
+            if (focused != null)
+            {
+                focused.GazeLeave(ray);
+            }
+            focused = null;
         }
-        focused = gr;
-        focused.GazeEnter(ray);
+        else if (gr == focused)
+        {
+            gr.Gaze(ray);
+        }
+        else
+        {
+            //Debug.Log("thinks gaze focused changing");
+            if (focused != null)
+            {
+                focused.GazeLeave(ray);
+            }
+            focused = gr;
+            focused.GazeEnter(ray);
+        }
     }
-}
 }

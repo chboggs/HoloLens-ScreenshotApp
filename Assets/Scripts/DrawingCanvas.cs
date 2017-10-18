@@ -21,15 +21,17 @@ public class DrawingCanvas : MonoBehaviour
 
     public void StartDraw()
     {
-        tex = GetComponent<MeshRenderer>().material.mainTexture as Texture2D;
+        Debug.Log("StartDraw");
+        tex = GetComponent<Renderer>().material.mainTexture as Texture2D;
         px = -100;
         py = -100;
     }
 
     public void Draw(Ray r)
     {
+        Debug.Log("dragdrag");
         if (tex == null) tex = GetComponent<Renderer>().material.mainTexture as Texture2D;
-        //Debug.Log("got drag");
+        Debug.Log("got drag in draw");
         RaycastHit hit;
         if (Physics.Raycast(r.origin, r.direction, out hit))
         {

@@ -12,8 +12,9 @@ public class CropCanvas : MonoBehaviour
     public GameObject LowerCube;
 
     bool upperCubeDragging;
-    public GameObject CubePrefab;    
-
+    public GameObject CubePrefab;
+    bool canDrag = false;
+    bool starting = false;
     public void StartCrop()
     {
         tex = GetComponent<MeshRenderer>().material.mainTexture as Texture2D;
@@ -42,18 +43,68 @@ public class CropCanvas : MonoBehaviour
 
     public void StartDrag(Ray r)
     {
+        /*
         Vector3 upperDirect = (UpperCube.transform.position - r.origin).normalized;
         Vector3 lowerDirect = (LowerCube.transform.position - r.origin).normalized;
         Vector3 aimDirection = r.direction.normalized;
 
-        Debug.LogFormat("upperdist: {0}, lowerdist: {1}", (upperDirect - aimDirection).magnitude, (lowerDirect - aimDirection).magnitude);
+        Debug.DrawRay(r.origin, upperDirect, Color.red,2);
+        Debug.DrawRay(r.origin, r.direction, Color.white,2);
+        Debug.DrawRay(r.origin, lowerDirect, Color.blue,2);
+        */
 
-        upperCubeDragging = (upperDirect - aimDirection).magnitude < (lowerDirect - aimDirection).magnitude;
-        Debug.LogFormat("started dragging crop, upper:{0}", upperCubeDragging);
+        starting = true;
     }
 
     public void Dragging(Ray r)
     {
+        if (starting)
+        {
+            starting = false;
+            RaycastHit hit2;
+
+            LayerMask mask2 = LayerMask.GetMask("EditCanvas");
+            Debug.DrawRay(r.origin, r.direction * 100, Color.green, 3);
+            if (Physics.Raycast(r.origin, r.direction, out hit2, mask2))
+            {
+                Debug.Log("drag start hit: " + hit2.collider.gameObject.name);
+                if (hit2.collider.gameObject.CompareTag("Canvas"))
+                {
+
+                    Debug.Log("hit coords: " + hit2.textureCoord.ToString("F3"));
+                    float xloc = PixelToLocX(hit2.textureCoord.x * tex.width);
+                    float yloc = PixelToLocY(hit2.textureCoord.y * tex.height);
+
+                    Vector3 dragStartLoc = new Vector3(xloc, 0, yloc);
+
+                    Debug.LogFormat("drag start: " + dragStartLoc.ToString("F3"));
+                    Debug.LogFormat("upper: " + UpperCube.transform.localPosition.ToString("F3"));
+                    Debug.LogFormat("lower: " + LowerCube.transform.localPosition.ToString("F3"));
+
+
+                    Debug.LogFormat("upperdist: {0}, lowerdist:{1}", (UpperCube.transform.localPosition - dragStartLoc).magnitude, (LowerCube.transform.localPosition - dragStartLoc).magnitude);
+
+                    upperCubeDragging = (UpperCube.transform.localPosition - dragStartLoc).magnitude < (LowerCube.transform.localPosition - dragStartLoc).magnitude;
+                    canDrag = true;
+                }
+            }
+            else
+            {
+                Debug.Log("no hit");
+                canDrag = false;
+            }
+
+            //Debug.LogFormat("upperdist: {0}, lowerdist: {1}", (upperDirect - aimDirection).magnitude, (lowerDirect - aimDirection).magnitude);
+
+            //upperCubeDragging = (upperDirect - aimDirection).magnitude < (lowerDirect - aimDirection).magnitude;
+            Debug.LogFormat("started dragging crop, upper:{0}", upperCubeDragging);
+        }
+
+
+        if (!canDrag)
+        {
+            return;
+        }
         RaycastHit hit;
         LayerMask mask = LayerMask.GetMask("EditCanvas");
         if (Physics.Raycast(r.origin, r.direction, out hit, mask))
@@ -77,9 +128,9 @@ public class CropCanvas : MonoBehaviour
         Debug.LogFormat("{0},{1}", UpperCube.transform.localPosition.x, UpperCube.transform.localPosition.z);
         Debug.Log("apply");
 
-        int upperx = LocToPixelX( UpperCube.transform.localPosition.x);
+        int upperx = LocToPixelX(UpperCube.transform.localPosition.x);
         int lowerx = LocToPixelX(LowerCube.transform.localPosition.x);
-        int uppery = LocToPixelY( UpperCube.transform.localPosition.z);
+        int uppery = LocToPixelY(UpperCube.transform.localPosition.z);
         int lowery = LocToPixelY(LowerCube.transform.localPosition.z);
 
         Debug.Log("1");
