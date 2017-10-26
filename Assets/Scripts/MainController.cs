@@ -7,6 +7,8 @@ public class MainController : MonoBehaviour
 {
     ModeManager mm;
 
+	public List<Texture2D> CapturedPhotos;
+
     Texture2D currentImage;
     Texture2D editedImage;
 
@@ -14,6 +16,7 @@ public class MainController : MonoBehaviour
     
     void Start()
     {
+		CapturedPhotos = new List<Texture2D> ();
         mm = GetComponent<ModeManager>();
         pc = GetComponent<PhotoCapturer>();
     }
@@ -51,6 +54,7 @@ public class MainController : MonoBehaviour
         {
             Debug.Log(e);
         }
+		AddPhotoToRoll (photo);
         currentImage = photo;
     }
 
@@ -68,8 +72,7 @@ public class MainController : MonoBehaviour
             editedImage = Instantiate(currentImage) as Texture2D;
             mm.SetMode(ModeManager.ModeManagerMode.Edit);
             //set canvas with editedImage
-            GameObject.FindGameObjectWithTag("Canvas").GetComponent<Renderer>().material.mainTexture = editedImage;
-            GameObject.FindGameObjectWithTag("Canvas").GetComponent<DrawingCanvas>().tex = editedImage;
+			FindObjectOfType<EditManagerScript>().SetImage(editedImage);
         }
     }
 
@@ -84,6 +87,11 @@ public class MainController : MonoBehaviour
         if (mm.currentMode == ModeManager.ModeManagerMode.Init || mm.currentMode == ModeManager.ModeManagerMode.Edit)
         {
             mm.SetMode(ModeManager.ModeManagerMode.Gallery);
+			FindObjectOfType<GalleryManager> ().Reset ();
         }
     }
+
+	public void AddPhotoToRoll(Texture2D image){
+		CapturedPhotos.Add (image);
+	}
 }

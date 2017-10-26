@@ -15,25 +15,26 @@ public class EditManagerScript : MonoBehaviour
     GameObject TLButtons;
     GameObject CropButtons;
 
-    public bool drawing;
-    public bool cropping;
+    public bool drawing =true;
+	public bool cropping = false;
 
     Stack<Texture2D> UndoStack;
 
     // Use this for initialization
     void Start()
     {
-        drawing = true;
-        cropping = false;
         cc = FindObjectOfType<CropCanvas>();
         dc = FindObjectOfType<DrawingCanvas>();
         CropButtons = GameObject.FindGameObjectWithTag("CroppingButtons");
         TLButtons = GameObject.FindGameObjectWithTag("TopLevelButtons");
-        CropButtons.SetActive(false);
-        //AddToStack();
-        UndoStack = new Stack<Texture2D>();
-        StartDraw();
     }
+
+	void SetImage(Texture2D image){
+		UndoStack = new Stack<Texture2D>();
+		StartDraw();
+		CropButtons.SetActive(false);
+		TLButtons.SetActive (true);
+	}
 
     public void StartDraw()
     {
@@ -74,9 +75,7 @@ public class EditManagerScript : MonoBehaviour
     {
         Texture2D current = GameObject.FindGameObjectWithTag("Canvas").GetComponent<MeshRenderer>().material.mainTexture as Texture2D;
         Debug.Log("got current");
-        Texture2D currentCopy = new Texture2D(current.width, current.height);
-        currentCopy.SetPixels(current.GetPixels());
-        currentCopy.Apply();
+		Texture2D currentCopy = Instantiate (current) as Texture2D;
         return currentCopy;
     }
 
