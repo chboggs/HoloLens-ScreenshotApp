@@ -14,8 +14,8 @@ Team Members:
 * Hit "Build">"Deploy ScreenshotTool"
 
 ## To See Shared Images:
-*Log into ar6screenshot@gmail.com
-*alexchrischristophcody
+* Log into ar6screenshot@gmail.com
+* Password: alexchrischristophcody
 
 ## Backend Link
 https://github.com/chboggs/ScreenshotApp-Backend
