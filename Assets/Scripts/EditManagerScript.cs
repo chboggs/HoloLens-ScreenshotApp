@@ -29,7 +29,9 @@ public class EditManagerScript : MonoBehaviour
         TLButtons = GameObject.FindGameObjectWithTag("TopLevelButtons");
     }
 
-	void SetImage(Texture2D image){
+	public void SetImage(Texture2D image){
+
+        SetCurrentTexture(image);
 		UndoStack = new Stack<Texture2D>();
 		StartDraw();
 		CropButtons.SetActive(false);
@@ -97,7 +99,7 @@ public class EditManagerScript : MonoBehaviour
 
     void SetCurrentTexture(Texture2D tex)
     {
-        GameObject.FindGameObjectWithTag("Canvas").GetComponent< MeshRenderer>().material.mainTexture = tex;
+        GameObject.FindGameObjectWithTag("Canvas").GetComponent<MeshRenderer>().material.mainTexture = tex;
         dc.tex = tex;
     }
 

@@ -16,19 +16,19 @@ public class GalleryManager : MonoBehaviour {
 	}
 
 	public void Reset(){
+        Debug.Log("reset");
 		photoIndex = -1;
 		if(InitIndex ()){
-			Texture2D sel = GetSelected();
-			if(sel!=null){
-				UpdateView(sel);
-			}
+            UpdateView();
 		}
 	}
 
 	bool InitIndex(){
 		if (photoIndex == -1) {
-			photoIndex = main.CapturedPhotos.Count - 1;
+            List<Texture2D> cc = main.CapturedPhotos;
+			photoIndex = cc.Count - 1;
 		}
+        Debug.Log("init, index: " + photoIndex.ToString());
 		return photoIndex >= 0;
 	}
 
@@ -43,7 +43,17 @@ public class GalleryManager : MonoBehaviour {
 	}
 
 	void UpdateView(){
-		cs.SetImage (GetSelected ());
+        Debug.Log("update");
+        Texture2D sel = GetSelected();
+        if (sel != null)
+        {
+            Debug.Log("not null");
+            cs.SetImage(sel);
+        }
+        else
+        {
+            Debug.Log("null");
+        }
 	}
 
 	public Texture2D GetSelected(){

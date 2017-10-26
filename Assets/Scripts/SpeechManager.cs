@@ -38,14 +38,14 @@ public class SpeechManager : MonoBehaviour
             Debug.Log("Edit said");
             mc.SwitchToEdit();
         });
-        /*
-        keywords.Add("To Gallery", () =>
+        
+        keywords.Add("Gallery", () =>
         {
             Debug.Log("To Gallery said");
             GameObject.FindGameObjectWithTag("Controller").GetComponent<MainController>().SwitchToGallery();
 
         });
-        */
+      
         keywords.Add("Draw", () =>
         {
             Debug.Log("Draw said");
@@ -91,14 +91,14 @@ public class SpeechManager : MonoBehaviour
         keywords.Add("Back", () =>
         {
             Debug.Log("Back said");
-            GameObject.FindGameObjectWithTag("GalleryController").GetComponent<GalleryControllerScript>().Back();
+            GameObject.FindGameObjectWithTag("GalleryController").GetComponent<GalleryManager>().Previous();
 
         });
 
         keywords.Add("Next", () =>
         {
             Debug.Log("Next said");
-            GameObject.FindGameObjectWithTag("GalleryController").GetComponent<GalleryControllerScript>().Next();
+            GameObject.FindGameObjectWithTag("GalleryController").GetComponent<GalleryManager>().Next();
 
         });
 

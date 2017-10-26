@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class ChangeButtonColor : MonoBehaviour {
 
+    public Material HoverColor;
+    public Material MainColor;
+
     // Use this for initialization
     private void Start()
     {
@@ -13,11 +16,13 @@ public class ChangeButtonColor : MonoBehaviour {
     }
 
     public void ChangeCursorOn (Ray r) {
-        GetComponent<Renderer>().material.SetColor("blue", Color.blue);
+        //Debug.Log("on");
+        GetComponent<Renderer>().material = HoverColor;
 	}
 	
 	// Update is called once per frame
 	public void ChangeCursorAway (Ray r) {
-        GetComponent<Renderer>().material.SetColor("white", Color.white);
+        //Debug.Log("off");
+        GetComponent<Renderer>().material = MainColor;
     }
 }

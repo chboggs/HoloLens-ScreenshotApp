@@ -4,17 +4,20 @@ using UnityEngine;
 
 public class CanvasSizer : MonoBehaviour {
 
-	MeshRenderer mr;
+    MeshRenderer mr;
 	float maxWidth;
 	float maxHeight;
 
 	// Use this for initialization
 	void Start () {
-		mr = GetComponent<MeshRenderer> (); 
+		mr = GetComponent<MeshRenderer>();
+        maxWidth = transform.localScale.x;
+        maxHeight = transform.localScale.z;
 	}
 
 	public void SetImage(Texture2D image){
 		mr.material.mainTexture = image;
+        Debug.Log("set image");
 
 		float canvasRatio = maxWidth / maxHeight;
 		float imageRatio = (float)image.width / image.height;
@@ -30,8 +33,7 @@ public class CanvasSizer : MonoBehaviour {
 			newHeight = maxHeight;
 		}
 
-		transform.localScale.x = newWidth;
-		transform.localScale.z = newHeight;
+		transform.localScale = new Vector3(newWidth,1, newHeight);
 
 	}
 }
