@@ -74,6 +74,13 @@ public class SpeechManager : MonoBehaviour
 
         });
 
+        keywords.Add("Undo", () =>
+        {
+            Debug.Log("undo said");
+            GameObject.FindGameObjectWithTag("EditManager").GetComponent<EditManagerScript>().Undo();
+
+        });
+
         keywords.Add("Save and Share", () =>
         {
             Debug.Log("Save and share said");

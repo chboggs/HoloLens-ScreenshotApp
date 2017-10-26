@@ -81,6 +81,7 @@ public class GazeInputManager : MonoBehaviour
             }
             else
             {
+                GetFocusedReceiver(gestureRay);
                 if (focused != null) focused.Drag(gestureRay);
             }
         }
@@ -89,7 +90,7 @@ public class GazeInputManager : MonoBehaviour
 
     public void TapHandler(InteractionSourceKind source, int tapCount, Ray headRay)
     {
-        Debug.Log("tip tap");
+//        Debug.Log("tip tap");
 
         if (focused != null)
         {
@@ -120,7 +121,7 @@ public class GazeInputManager : MonoBehaviour
     public GazeReceiver GetFocusedReceiver(Ray ray)
     {
         RaycastHit hit;
-        if (Physics.Raycast(cameraLocation, cameraDirection, out hit))
+        if (Physics.Raycast(ray.origin, ray.direction, out hit))
         {
             cursor.SetActive(true);
             cursor.transform.position = hit.point;
@@ -129,8 +130,8 @@ public class GazeInputManager : MonoBehaviour
         }
         else
         {
-            cursor.transform.position = cameraLocation + cameraDirection.normalized * 5;
-            cursor.transform.up = cameraDirection;
+            cursor.transform.position = ray.origin + ray.direction.normalized * 5;
+            cursor.transform.up = ray.direction;
         }
         return null;
     }

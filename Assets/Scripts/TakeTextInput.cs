@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnityEngine.UI;
 
 public class TakeTextInput : MonoBehaviour {
     UnityEngine.TouchScreenKeyboard keyboard;
@@ -37,6 +38,7 @@ public class TakeTextInput : MonoBehaviour {
                 {
                     GetComponentInChildren<TextMesh>().text = "Add Caption";
                 }
+                GetComponentInChildren<Text>().text = KeyBoardText;
             }
         }
     }

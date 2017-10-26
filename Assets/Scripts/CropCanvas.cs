@@ -133,19 +133,19 @@ public class CropCanvas : MonoBehaviour
         int uppery = LocToPixelY(UpperCube.transform.localPosition.z);
         int lowery = LocToPixelY(LowerCube.transform.localPosition.z);
 
-        Debug.Log("1");
+      //  Debug.Log("1");
 
         //int newheight = (uppery - lowery) * tex.height;
         //int newwidth = (upperx - lowerx) * tex.width;
 
         int minx = Mathf.Min(upperx, lowerx);
         int miny = Mathf.Min(uppery, lowery);
-        Debug.Log("2");
+//        Debug.Log("2");
 
         int newwidth = Mathf.Abs(upperx - lowerx);
         int newheight = Mathf.Abs(uppery - lowery);
 
-        Debug.LogFormat("min: {0},{1}, dim:{2},{3}", minx, miny, newwidth, newheight);
+     //   Debug.LogFormat("min: {0},{1}, dim:{2},{3}", minx, miny, newwidth, newheight);
 
         Color[] pixel = tex.GetPixels(minx, miny, newwidth, newheight, 0);
 

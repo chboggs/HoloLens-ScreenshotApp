@@ -99,7 +99,7 @@ public class ImageGet : MonoBehaviour
     public void TakePhoto()
     {
         taking = true;
-        Resolution cameraResolution = PhotoCapture.SupportedResolutions.OrderByDescending((res) => res.width * res.height).First();
+        Resolution cameraResolution = PhotoCapture.SupportedResolutions.OrderByDescending((res) => res.width * res.height).ToArray()[1];
         targetTexture = new Texture2D(cameraResolution.width, cameraResolution.height);
 
         PhotoCapture.CreateAsync(false, delegate (PhotoCapture captureObject) {
