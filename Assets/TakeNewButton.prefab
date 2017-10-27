@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 64230024787750124}
   - component: {fileID: 23628807038082604}
   - component: {fileID: 114430415437835272}
+  - component: {fileID: 114628636787313118}
   m_Layer: 0
   m_Name: TakeNewButton
   m_TagString: Untagged
@@ -119,7 +120,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 2b801239a539d754a8989200b8c0a7bc, type: 2}
+  - {fileID: 2100000, guid: 9bc6f119977588c41a9512390dedc42c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -251,3 +252,16 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: GazeReceiver+RayEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
+--- !u!114 &114628636787313118
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1053406779685956}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eaf131798b8399b4bb05a1f195940a3e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HoverColor: {fileID: 2100000, guid: e5703db493a3818428465210d49acfb7, type: 2}
+  MainColor: {fileID: 2100000, guid: 9bc6f119977588c41a9512390dedc42c, type: 2}

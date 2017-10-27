@@ -927,6 +927,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 643539289f8316a448f69277b4665403, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CapturedPhotos: []
 --- !u!114 &385668487
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1997,46 +1998,6 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 760798919}
---- !u!1 &825585746
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 825585747}
-  - component: {fileID: 825585748}
-  m_Layer: 0
-  m_Name: GalleryController
-  m_TagString: GallaryController
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &825585747
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 825585746}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1014558244}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &825585748
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 825585746}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 51fcdf92a84ef45448dd842f83a5a16d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &865556644
 Prefab:
   m_ObjectHideFlags: 0
@@ -2482,6 +2443,7 @@ GameObject:
   - component: {fileID: 1014558244}
   - component: {fileID: 1014558245}
   - component: {fileID: 1014558246}
+  - component: {fileID: 1014558247}
   m_Layer: 0
   m_Name: Gallery
   m_TagString: Untagged
@@ -2501,7 +2463,6 @@ Transform:
   m_Children:
   - {fileID: 1584997994}
   - {fileID: 720870350}
-  - {fileID: 825585747}
   - {fileID: 1495803173}
   - {fileID: 1485476636}
   m_Father: {fileID: 0}
@@ -2535,6 +2496,17 @@ MonoBehaviour:
   Distance: 3
   currentAngle: 0
   desiredAngle: 0
+--- !u!114 &1014558247
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1014558243}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7802f481d4ad3b14b818ab1f8d74f3da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1069127565
 Prefab:
   m_ObjectHideFlags: 0
@@ -3258,7 +3230,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4409799097503642, guid: fc321944200d7574999098e8dc5f3de1, type: 2}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1053406779685956, guid: fc321944200d7574999098e8dc5f3de1, type: 2}
       propertyPath: m_Name
@@ -3268,6 +3240,16 @@ Prefab:
         type: 2}
       propertyPath: m_Text
       value: Back
+      objectReference: {fileID: 0}
+    - target: {fileID: 114430415437835272, guid: fc321944200d7574999098e8dc5f3de1,
+        type: 2}
+      propertyPath: TappedEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1014558247}
+    - target: {fileID: 114430415437835272, guid: fc321944200d7574999098e8dc5f3de1,
+        type: 2}
+      propertyPath: TappedEvent.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Previous
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: fc321944200d7574999098e8dc5f3de1, type: 2}
@@ -3314,7 +3296,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4409799097503642, guid: fc321944200d7574999098e8dc5f3de1, type: 2}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1053406779685956, guid: fc321944200d7574999098e8dc5f3de1, type: 2}
       propertyPath: m_Name
@@ -3323,6 +3305,16 @@ Prefab:
     - target: {fileID: 102277089536491592, guid: fc321944200d7574999098e8dc5f3de1,
         type: 2}
       propertyPath: m_Text
+      value: Next
+      objectReference: {fileID: 0}
+    - target: {fileID: 114430415437835272, guid: fc321944200d7574999098e8dc5f3de1,
+        type: 2}
+      propertyPath: TappedEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1014558247}
+    - target: {fileID: 114430415437835272, guid: fc321944200d7574999098e8dc5f3de1,
+        type: 2}
+      propertyPath: TappedEvent.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: Next
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -3344,6 +3336,7 @@ GameObject:
   - component: {fileID: 1584997997}
   - component: {fileID: 1584997996}
   - component: {fileID: 1584997995}
+  - component: {fileID: 1584997998}
   m_Layer: 0
   m_Name: Plane
   m_TagString: GallaryFrame
@@ -3417,6 +3410,17 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1584997993}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1584997998
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1584997993}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5641960312db24a43802e8cf7b4d8641, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1614052549
 GameObject:
   m_ObjectHideFlags: 0
