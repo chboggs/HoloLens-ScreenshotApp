@@ -73,7 +73,7 @@ public class EditManagerScript : MonoBehaviour
         StartDraw();
     }
 
-    Texture2D GetCurrentTexture()
+    public Texture2D GetCurrentTexture()
     {
         Texture2D current = GameObject.FindGameObjectWithTag("Canvas").GetComponent<MeshRenderer>().material.mainTexture as Texture2D;
         Debug.Log("got current");

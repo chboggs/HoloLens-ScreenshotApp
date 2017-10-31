@@ -90,6 +90,9 @@ public class MainController : MonoBehaviour
     {
         if (mm.currentMode == ModeManager.ModeManagerMode.Init || mm.currentMode == ModeManager.ModeManagerMode.Edit)
         {
+			if (mm.currentMode == ModeManager.ModeManagerMode.Edit) {
+				AddPhotoToRoll (FindObjectOfType<EditManagerScript> ().GetCurrentTexture ());
+			}
             mm.SetMode(ModeManager.ModeManagerMode.Gallery);
 			FindObjectOfType<GalleryManager> ().Reset ();
         }
