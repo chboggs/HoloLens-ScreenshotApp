@@ -74,6 +74,11 @@ public class MainController : MonoBehaviour
             //set canvas with editedImage
 			FindObjectOfType<EditManagerScript>().SetImage(editedImage);
         }
+		if (mm.currentMode == ModeManager.ModeManagerMode.Gallery) {
+			mm.SetMode (ModeManager.ModeManagerMode.Edit);
+			FindObjectOfType<EditManagerScript>().SetImage(FindObjectOfType<GalleryManager>().GetSelected());
+		}
+	
     }
 
     public void SwitchToHelp()
@@ -83,7 +88,6 @@ public class MainController : MonoBehaviour
 
     public void SwitchToGallery()
     {
-
         if (mm.currentMode == ModeManager.ModeManagerMode.Init || mm.currentMode == ModeManager.ModeManagerMode.Edit)
         {
             mm.SetMode(ModeManager.ModeManagerMode.Gallery);
