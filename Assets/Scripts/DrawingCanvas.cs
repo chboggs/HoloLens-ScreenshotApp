@@ -11,8 +11,11 @@ public class DrawingCanvas : MonoBehaviour
     int py = -100;
 
     public int Radius = 10;
+	public Color DrawColor = Color.red;
     public int MaxDistanceToConnect = 20;
     public float NumDrawsInConnect = 4;
+
+	Color[] data;
 
     private void OnEnable()
     {
@@ -25,12 +28,16 @@ public class DrawingCanvas : MonoBehaviour
         tex = GetComponent<Renderer>().material.mainTexture as Texture2D;
         px = -100;
         py = -100;
+		data = tex.GetPixels ();
     }
 
     public void Draw(Ray r)
     {
         Debug.Log("dragdrag");
-        if (tex == null) tex = GetComponent<Renderer>().material.mainTexture as Texture2D;
+		if (tex == null)
+		{
+			StartDraw ();
+		}
         Debug.Log("got drag in draw");
         RaycastHit hit;
         if (Physics.Raycast(r.origin, r.direction, out hit))
@@ -41,9 +48,7 @@ public class DrawingCanvas : MonoBehaviour
             //  tex.SetPixel(, Mathf.FloorToInt(hitcoord.y * tex.height), Color.red);
             int x = Mathf.FloorToInt(hitcoord.x * tex.width);
             int y = Mathf.FloorToInt(hitcoord.y * tex.height);
-
-            Color[] data = tex.GetPixels();
-
+			            
             if (new Vector2(x - px, y - py).magnitude < MaxDistanceToConnect)
             {
                 //fill 
@@ -52,12 +57,12 @@ public class DrawingCanvas : MonoBehaviour
                 for (int i = 1; i <=NumDrawsInConnect; i++)
                 {
                     Vector2 l = Vector2.Lerp(s, d, (float)i / NumDrawsInConnect);
-                    DrawCircle(Mathf.FloorToInt(l.x), Mathf.FloorToInt(l.y), data);
+                    DrawCircle(Mathf.FloorToInt(l.x), Mathf.FloorToInt(l.y));
                 }
             }
             else
             {
-                DrawCircle(x, y, data);
+                DrawCircle(x, y);
             }
 
             px = x;
@@ -68,23 +73,7 @@ public class DrawingCanvas : MonoBehaviour
         }
     }
 
-    void DrawRect(int x, int y, Color[] imageData)
-    {
-        for (int i = -Radius; i <= Radius; i++)
-        {
-            for (int j = -Radius; j < Radius; j++)
-            {
-                int positionX = x + i;
-                int positionY = y + j;
-                if (positionX >= 0 && positionX < tex.width && positionY >= 0 && positionY < tex.height)
-                {
-                    imageData[GetLinearCoordinate(positionX, positionY)] = Color.red;
-                }
-            }
-        }
-    }
-
-    void DrawCircle(int x, int y, Color[] imageData)
+	void DrawCircle(int x, int y)
     {
         for (int i = -Radius; i <= Radius; i++)
         {
@@ -95,11 +84,51 @@ public class DrawingCanvas : MonoBehaviour
                 int positionY = y + j;
                 if (positionX >= 0 && positionX < tex.width && positionY >= 0 && positionY < tex.height && new Vector2(i, j).magnitude <= Radius)
                 {
-                    imageData[GetLinearCoordinate(positionX, positionY)] = Color.red;
+					data[GetLinearCoordinate(positionX, positionY)] = DrawColor;
                 }
             }
         }
     }
+
+	public void SetRadius(int r){
+		Radius = r;
+	}
+
+	public void SetSmall(){
+		SetRadius(5);
+	}
+
+	public void SetMedium(){
+		SetRadius (10);
+	}
+
+	public void SetLarge(){
+		SetRadius (20);
+	}
+
+	public void SetColor(Color c){
+		DrawColor = c;
+	}
+
+	public void SetRed(){
+		SetColor (Color.red);
+	}
+
+	public void SetBlue(){
+		SetColor (Color.blue);
+	}
+
+	public void SetGreen(){
+		SetColor (Color.green);
+	}
+
+	public void SetWhite(){
+		SetColor (Color.white);
+	}
+
+	public void SetBlack(){
+		SetColor (Color.black);
+	}		
 
     int GetLinearCoordinate(int x, int y)
     {
