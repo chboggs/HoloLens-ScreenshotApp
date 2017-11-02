@@ -132,4 +132,11 @@ public class EditManagerScript : MonoBehaviour
             dc.Draw(r);
         }
     }
+
+	public void EndDragging(Ray r){
+		Debug.Log ("recieved enddraw");
+		if (drawing) {
+			dc.Apply ();
+		}
+	}
 }

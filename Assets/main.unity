@@ -2603,7 +2603,18 @@ MonoBehaviour:
       PublicKeyToken=null
   DragEndEvent:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 18332393}
+        m_MethodName: EndDragging
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: GazeReceiver+RayEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
   DragEvent:
@@ -2644,10 +2655,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tex: {fileID: 0}
+  Canvasdimx: 5
+  Canvasdimy: 5
   Radius: 10
   DrawColor: {r: 1, g: 0, b: 0, a: 1}
   MaxDistanceToConnect: 80
   NumDrawsInConnect: 8
+  LinePrefab: {fileID: 1061460443335578, guid: fe8682c0740831c42a71106c28689f55, type: 2}
 --- !u!23 &940620327
 MeshRenderer:
   m_ObjectHideFlags: 0
