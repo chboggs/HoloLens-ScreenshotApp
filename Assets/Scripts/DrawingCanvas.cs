@@ -68,9 +68,15 @@ public class DrawingCanvas : MonoBehaviour
             px = x;
             py = y;
 
-            tex.SetPixels(data);
-            tex.Apply();
+            //tex.SetPixels(data);
+            //tex.Apply();
         }
+    }
+    
+    public void EndDraw()
+    {
+        tex.SetPixels(data);
+        tex.Apply();
     }
 
 	void DrawCircle(int x, int y)
