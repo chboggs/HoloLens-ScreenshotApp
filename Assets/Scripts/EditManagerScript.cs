@@ -134,12 +134,10 @@ public class EditManagerScript : MonoBehaviour
         }
     }
 
-    public void StopDragging(Ray r)
-    {
-        Debug.Log("Stop drag edit");
-        if (drawing)
-        {
-            dc.EndDraw();
-        }
-    }
+	public void EndDragging(Ray r){
+		Debug.Log ("recieved enddraw");
+		if (drawing) {
+			dc.Apply ();
+		}
+	}
 }
