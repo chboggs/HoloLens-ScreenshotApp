@@ -50,7 +50,7 @@ public class DrawingCanvas : MonoBehaviour
     }
 
 	public void Draw(Ray r){
-		Debug.Log("got drag in draw");
+		//Debug.Log("got drag in draw");
 		RaycastHit hit;
 		if (Physics.Raycast(r.origin, r.direction, out hit))
 		{

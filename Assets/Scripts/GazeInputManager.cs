@@ -63,10 +63,12 @@ public class GazeInputManager : MonoBehaviour
         {
             dragDirectionFromCamera = (dragStartLocation + dragChange) - cameraLocation;
             Ray gestureRay = new Ray(cameraLocation, dragDirectionFromCamera);
-            Debug.DrawRay(gestureRay.origin, gestureRay.direction, Color.cyan); 
+            Debug.DrawRay(gestureRay.origin, gestureRay.direction, Color.cyan);
             //gestPos.transform.position = dragStartLocation + dragChange;
+            //Debug.LogFormat("end drag: {0}, sent: {1}", endDrag, sentDragStart);
             if (endDrag)
             {
+                Debug.Log("Enddrag");
                 StopDragging(focused, gestureRay);
                 endDrag = false;
                 dragging = false;
@@ -74,10 +76,23 @@ public class GazeInputManager : MonoBehaviour
             }
             else if (!sentDragStart)
             {
-                GazeReceiver newFocused = GetFocusedReceiver(gestureRay);
-                if (newFocused != null) Debug.Log("Dragging on " + newFocused.gameObject.name);
-                sentDragStart = true;
-                StartDragging(newFocused, gestureRay);
+                Debug.Log("start dragg");
+                GazeReceiver newFocused = null;
+                try
+                {
+                   newFocused = GetFocusedReceiver(gestureRay);
+                }
+                catch(Exception e)
+                {
+                    
+                    Debug.Log(e);
+                }
+                if (newFocused != null)
+                {
+                    Debug.Log("Dragging on " + newFocused.gameObject.name);
+                    sentDragStart = true;
+                    StartDragging(newFocused, gestureRay);
+                }
             }
             else
             {
@@ -101,9 +116,11 @@ public class GazeInputManager : MonoBehaviour
 
     public void ManipulationStartedFunc(InteractionSourceKind source, Vector3 cumulativeDelta, Ray headRay)
     {
+        Debug.Log("manipstart");
         gazing = false;
         dragging = true;
         sentDragStart = false;
+        endDrag = false;
     }
     public void ManipulationUpdatedFunc(InteractionSourceKind source, Vector3 cumulativeDelta, Ray headRay)
     {
@@ -115,6 +132,7 @@ public class GazeInputManager : MonoBehaviour
 
     public void ManipulationCompletedFunc(InteractionSourceKind source, Vector3 cumulativeDelta, Ray headRay)
     {
+        Debug.Log("manipcomplete");
         endDrag = true;
     }
 

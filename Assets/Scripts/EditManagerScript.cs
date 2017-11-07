@@ -129,7 +129,7 @@ public class EditManagerScript : MonoBehaviour
 
         if (drawing == true)
         {
-            Debug.Log("Dragdraw");
+            //Debug.Log("Dragdraw");
             dc.Draw(r);
         }
     }
