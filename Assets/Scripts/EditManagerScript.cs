@@ -31,7 +31,6 @@ public class EditManagerScript : MonoBehaviour
 
     public void SetImage(Texture2D image)
     {
-
         SetCurrentTexture(image);
         UndoStack = new Stack<Texture2D>();
         StartDraw();
@@ -76,7 +75,7 @@ public class EditManagerScript : MonoBehaviour
 
     public Texture2D GetCurrentTexture()
     {
-        Texture2D current = GameObject.FindGameObjectWithTag("Canvas").GetComponent<MeshRenderer>().material.mainTexture as Texture2D;
+        Texture2D current = GameObject.FindGameObjectWithTag("Canvas").GetComponent<CanvasSizer>().GetImage();
         Debug.Log("got current");
         Texture2D currentCopy = Instantiate(current) as Texture2D;
         return currentCopy;
@@ -100,7 +99,7 @@ public class EditManagerScript : MonoBehaviour
 
     void SetCurrentTexture(Texture2D tex)
     {
-        GameObject.FindGameObjectWithTag("Canvas").GetComponent<MeshRenderer>().material.mainTexture = tex;
+        GameObject.FindGameObjectWithTag("Canvas").GetComponent<CanvasSizer>().SetImage(tex);
         dc.tex = tex;
     }
 
@@ -121,11 +120,13 @@ public class EditManagerScript : MonoBehaviour
 
     public void Dragging(Ray r)
     {
+        /*
         if (cropping == true)
         {
             //Debug.DrawRay(r.origin, r.direction);
             cc.Dragging(r);
         }
+        */
 
         if (drawing == true)
         {
@@ -140,4 +141,12 @@ public class EditManagerScript : MonoBehaviour
 			dc.Apply ();
 		}
 	}
+
+    public void Tap(Ray r)
+    {
+        if (cropping)
+        {
+            cc.Tap(r);
+        }
+    }
 }

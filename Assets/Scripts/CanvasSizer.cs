@@ -33,7 +33,27 @@ public class CanvasSizer : MonoBehaviour {
 			newHeight = maxHeight;
 		}
 
-		transform.localScale = new Vector3(newWidth,1, newHeight);
-
+        transform.localScale = new Vector3(newWidth, 1, newHeight);
 	}
+
+    public Texture2D GetImage()
+    {
+        return mr.material.mainTexture as Texture2D;
+    }
+
+    public Vector2 GetTextureCoords(Vector3 worldPosition)
+    {
+        
+        Vector3 localPosition = transform.InverseTransformVector(worldPosition);
+        Texture2D image = GetImage();
+        return new Vector2((localPosition.x*0.1f+0.5f) * image.width, (localPosition.z*0.5f+0.5f) * image.height);
+    }
+
+    public Vector3 GetWorldPosition(Vector2 textureCoords)
+    {
+        Texture2D image = GetImage();
+        Vector3 localPosition = new Vector3((textureCoords.x/image.width - 0.5f)*10, 0, (textureCoords.y/image.height - 0.5f)*10);
+        return transform.TransformPoint(localPosition);
+    }
+    
 }

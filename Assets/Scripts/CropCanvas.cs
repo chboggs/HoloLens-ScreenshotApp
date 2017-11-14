@@ -5,57 +5,107 @@ using UnityEngine;
 
 public class CropCanvas : MonoBehaviour
 {
-    public float Canvasdimx = 5;
-    public float Canvasdimy = 5;
+    //public float Canvasdimx = 5;
+    //public float Canvasdimy = 5;
     Texture2D tex;
-    public GameObject UpperCube;
-    public GameObject LowerCube;
+
+
+    GameObject cube1;
+    GameObject cube2;
+
+    Vector2 coords1;
+    Vector2 coords2;
 
     bool upperCubeDragging;
     public GameObject CubePrefab;
     bool canDrag = false;
     bool starting = false;
+
+    bool cropping = false;
+
+    CanvasSizer cs;
+
+    public void Start()
+    {
+        cs = GetComponent<CanvasSizer>();
+    }
+
+    public void LateUpdate()
+    {
+        if (cropping)
+        {
+            cube1.transform.position = cs.GetWorldPosition(coords1);
+            cube1.transform.up = transform.forward;
+            cube2.transform.position = cs.GetWorldPosition(coords2);
+            cube2.transform.up = transform.forward;
+        }
+    }
+
+
     public void StartCrop()
     {
-        tex = GetComponent<MeshRenderer>().material.mainTexture as Texture2D;
-
-        if (UpperCube != null) Destroy(UpperCube);
-        if (LowerCube != null) Destroy(LowerCube);
-
-        UpperCube = Instantiate(CubePrefab);
-        LowerCube = Instantiate(CubePrefab);
-        UpperCube.transform.parent = transform;
-        LowerCube.transform.parent = transform;
-        UpperCube.transform.localRotation = Quaternion.identity;
-        LowerCube.transform.localRotation = Quaternion.identity;
-        UpperCube.transform.localPosition = new Vector3(Canvasdimx, 0, -Canvasdimy);
-        LowerCube.transform.localPosition = new Vector3(-Canvasdimx, 0, Canvasdimy);
-        //UpperCube.GetComponent<GazeReceiver>().DragEvent.AddListener(Dragging);
-        //LowerCube.GetComponent<GazeReceiver>().DragEvent.AddListener(Dragging);
-
+        InstantiateCubes();
+        cropping = true;
     }
 
-    public void DestroyCubes()
-    {
-        Destroy(UpperCube);
-        Destroy(LowerCube);
-    }
 
     public void StartDrag(Ray r)
     {
-        /*
-        Vector3 upperDirect = (UpperCube.transform.position - r.origin).normalized;
-        Vector3 lowerDirect = (LowerCube.transform.position - r.origin).normalized;
-        Vector3 aimDirection = r.direction.normalized;
-
-        Debug.DrawRay(r.origin, upperDirect, Color.red,2);
-        Debug.DrawRay(r.origin, r.direction, Color.white,2);
-        Debug.DrawRay(r.origin, lowerDirect, Color.blue,2);
-        */
-
         starting = true;
     }
 
+    public void Tap(Ray r)
+    {
+        RaycastHit hit;
+
+        LayerMask mask = LayerMask.GetMask("EditCanvas");
+        //Debug.DrawRay(r.origin, r.direction * 100, Color.green, 3);
+        if (Physics.Raycast(r.origin, r.direction, out hit, mask))
+        {
+            //hit occurred
+            Vector2 textureCoord = hit.textureCoord;
+            bool useCube1 = Cube1Closer(textureCoord);
+
+            //GameObject cube = (useCube1) ? cube1 : cube2;
+
+            if (useCube1)
+            {
+                coords1 = textureCoord;
+            }
+            else
+            {
+                coords2 = textureCoord;
+            }
+        }
+    }
+
+    public void Apply()
+    {
+        Texture2D image = cs.GetImage();
+
+        int x1 = Mathf.Clamp(Mathf.RoundToInt(coords1.x), 0, image.width - 1);
+        int x2 = Mathf.Clamp(Mathf.RoundToInt(coords2.x), 0, image.width - 1);
+        int y1 = Mathf.Clamp(Mathf.RoundToInt(coords1.y), 0, image.height - 1);
+        int y2 = Mathf.Clamp(Mathf.RoundToInt(coords2.y), 0, image.height - 1);
+
+        int minx = Mathf.Min(x1, x2);
+        int miny = Mathf.Min(y1, y2);
+
+        int newwidth = Mathf.Abs(x1 - x2 + 1);
+        int newheight = Mathf.Abs(y1 - y2 + 1);
+
+        //   Debug.LogFormat("min: {0},{1}, dim:{2},{3}", minx, miny, newwidth, newheight);
+
+        Color[] pixel = tex.GetPixels(minx, miny, newwidth, newheight, 0);
+
+        Texture2D newtex = new Texture2D(newwidth, newheight);
+        newtex.SetPixels(pixel);
+        newtex.Apply();
+        cs.SetImage(newtex);
+        Cancel();
+    }
+
+    /*
     public void Dragging(Ray r)
     {
         if (starting)
@@ -117,62 +167,28 @@ public class CropCanvas : MonoBehaviour
             cube.transform.localPosition = new Vector3(PixelToLocX(hitcoord.x * tex.width), 0, PixelToLocY(hitcoord.y * tex.height));
         }
     }
+    */
+    bool Cube1Closer(Vector2 textureCoord)
+    {
+        return (textureCoord - coords1).magnitude < (textureCoord - coords2).magnitude;
+    }
 
     public void Cancel()
     {
         DestroyCubes();
+        cropping = false;
     }
 
-    public void Apply()
+    void DestroyCubes()
     {
-        Debug.LogFormat("{0},{1}", UpperCube.transform.localPosition.x, UpperCube.transform.localPosition.z);
-        Debug.Log("apply");
-
-        int upperx = LocToPixelX(UpperCube.transform.localPosition.x);
-        int lowerx = LocToPixelX(LowerCube.transform.localPosition.x);
-        int uppery = LocToPixelY(UpperCube.transform.localPosition.z);
-        int lowery = LocToPixelY(LowerCube.transform.localPosition.z);
-
-      //  Debug.Log("1");
-
-        //int newheight = (uppery - lowery) * tex.height;
-        //int newwidth = (upperx - lowerx) * tex.width;
-
-        int minx = Mathf.Min(upperx, lowerx);
-        int miny = Mathf.Min(uppery, lowery);
-//        Debug.Log("2");
-
-        int newwidth = Mathf.Abs(upperx - lowerx);
-        int newheight = Mathf.Abs(uppery - lowery);
-
-     //   Debug.LogFormat("min: {0},{1}, dim:{2},{3}", minx, miny, newwidth, newheight);
-
-        Color[] pixel = tex.GetPixels(minx, miny, newwidth, newheight, 0);
-
-        Texture2D newtex = new Texture2D(newwidth, newheight);
-        newtex.SetPixels(pixel);
-        newtex.Apply();
-        GetComponent<MeshRenderer>().material.mainTexture = newtex;
-        Cancel();
+        if (cube1 != null) Destroy(cube1);
+        if (cube2 != null) Destroy(cube2);
     }
 
-    int LocToPixelX(float x)
+    void InstantiateCubes()
     {
-        return Mathf.FloorToInt(((Canvasdimx - x) / (Canvasdimx * 2)) * tex.width);
+        DestroyCubes();
+        cube1 = Instantiate(CubePrefab);
+        cube2 = Instantiate(CubePrefab);
     }
-    int LocToPixelY(float y)
-    {
-        return Mathf.FloorToInt(((Canvasdimy - y) / (Canvasdimy * 2)) * tex.height);
-    }
-
-    float PixelToLocX(float x)
-    {
-        return -(x / tex.width * (Canvasdimx * 2) - Canvasdimx);
-    }
-
-    float PixelToLocY(float y)
-    {
-        return -(y / tex.height * (Canvasdimy * 2) - Canvasdimy);
-    }
-
 }
