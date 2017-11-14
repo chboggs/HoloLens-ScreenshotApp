@@ -7,8 +7,6 @@ public class CropCanvas : MonoBehaviour
 {
     //public float Canvasdimx = 5;
     //public float Canvasdimy = 5;
-    Texture2D tex;
-
 
     GameObject cube1;
     GameObject cube2;
@@ -34,10 +32,11 @@ public class CropCanvas : MonoBehaviour
     {
         if (cropping)
         {
+            //Debug.Log("lateupdate cropcanvas");
             cube1.transform.position = cs.GetWorldPosition(coords1);
-            cube1.transform.up = transform.forward;
+            cube1.transform.up = transform.up;
             cube2.transform.position = cs.GetWorldPosition(coords2);
-            cube2.transform.up = transform.forward;
+            cube2.transform.up = transform.up;
         }
     }
 
@@ -45,6 +44,9 @@ public class CropCanvas : MonoBehaviour
     public void StartCrop()
     {
         InstantiateCubes();
+        Texture2D image = cs.GetImage();
+        coords1 = new Vector2(0, image.height - 1);
+        coords2 = new Vector2(image.width - 1, 0);
         cropping = true;
     }
 
@@ -63,11 +65,12 @@ public class CropCanvas : MonoBehaviour
         if (Physics.Raycast(r.origin, r.direction, out hit, mask))
         {
             //hit occurred
-            Vector2 textureCoord = hit.textureCoord;
+            Texture2D image = cs.GetImage();
+            Vector2 textureCoord = Vector2.Scale(hit.textureCoord, new Vector2(image.width, image.height));
             bool useCube1 = Cube1Closer(textureCoord);
 
             //GameObject cube = (useCube1) ? cube1 : cube2;
-
+            Debug.LogFormat("moving cube: {0}", useCube1 ? "cube1" : "cube2");
             if (useCube1)
             {
                 coords1 = textureCoord;
@@ -81,6 +84,7 @@ public class CropCanvas : MonoBehaviour
 
     public void Apply()
     {
+        Debug.Log("applying crop");
         Texture2D image = cs.GetImage();
 
         int x1 = Mathf.Clamp(Mathf.RoundToInt(coords1.x), 0, image.width - 1);
@@ -96,13 +100,16 @@ public class CropCanvas : MonoBehaviour
 
         //   Debug.LogFormat("min: {0},{1}, dim:{2},{3}", minx, miny, newwidth, newheight);
 
-        Color[] pixel = tex.GetPixels(minx, miny, newwidth, newheight, 0);
+        Color[] pixel = image.GetPixels(minx, miny, newwidth, newheight, 0);
 
         Texture2D newtex = new Texture2D(newwidth, newheight);
         newtex.SetPixels(pixel);
         newtex.Apply();
+
+        Debug.Log("here");
         cs.SetImage(newtex);
         Cancel();
+        Debug.Log("done applying");
     }
 
     /*

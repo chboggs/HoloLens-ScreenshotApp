@@ -20,19 +20,26 @@ public class DrawingCanvas : MonoBehaviour
 
 	Color[] data;
 
+    CanvasSizer cs;
 
 	public GameObject LinePrefab;
 	LineRenderer lr = null;
 
-    private void OnEnable()
+    private void Start()
     {
-        StartDraw();
+        cs = GetComponent<CanvasSizer>();
     }
 
     public void StartDraw()
     {
-        Debug.Log("StartDraw");
-        tex = GetComponent<Renderer>().material.mainTexture as Texture2D;
+        //Debug.Log("StartDraw");
+        if(cs == null)
+        {
+            //Debug.Log("dc, cs is null");
+            cs = GetComponent<CanvasSizer>();
+            //Debug.LogFormat("dc, cs is still null: {0}", cs == null);
+        }
+        tex = cs.GetImage();
         px = -100;
         py = -100;
         //data = tex.GetPixels ();
@@ -54,6 +61,7 @@ public class DrawingCanvas : MonoBehaviour
 		RaycastHit hit;
 		if (Physics.Raycast(r.origin, r.direction, out hit))
 		{
+            Debug.Log("drawing point");
 			//append hit loc
 			Vector3 hitloc = transform.InverseTransformPoint (hit.point);
 

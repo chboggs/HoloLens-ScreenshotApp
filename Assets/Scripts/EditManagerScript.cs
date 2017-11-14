@@ -31,11 +31,13 @@ public class EditManagerScript : MonoBehaviour
 
     public void SetImage(Texture2D image)
     {
+        Debug.Log("setimage editman");
         SetCurrentTexture(image);
         UndoStack = new Stack<Texture2D>();
         StartDraw();
         CropButtons.SetActive(false);
         TLButtons.SetActive(true);
+        Debug.Log("setimage done");
     }
 
     public void StartDraw()
@@ -43,13 +45,14 @@ public class EditManagerScript : MonoBehaviour
         drawing = true;
         cropping = false;
         dc.StartDraw();
+        Debug.Log("Started draw ems");
     }
 
     public void StartCrop()
     {
         cropping = true;
         drawing = false;
-        dc.GetComponent<CropCanvas>().StartCrop();
+        cc.StartCrop();
         AddToStack();
         CropButtons.SetActive(true);
         TLButtons.SetActive(false);
@@ -108,6 +111,7 @@ public class EditManagerScript : MonoBehaviour
         Debug.Log("start drag edit");
         if (drawing)
         {
+            Debug.Log("add to stack for draw");
             AddToStack();
             dc.StartDraw();
         }
@@ -127,10 +131,10 @@ public class EditManagerScript : MonoBehaviour
             cc.Dragging(r);
         }
         */
-
+        Debug.Log("dragging in ems");
         if (drawing == true)
         {
-            //Debug.Log("Dragdraw");
+            Debug.Log("Dragdraw");
             dc.Draw(r);
         }
     }

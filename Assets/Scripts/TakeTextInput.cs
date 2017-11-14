@@ -32,7 +32,7 @@ public class TakeTextInput : MonoBehaviour {
                 //GetComponentInChildren<Text>().text = keyboardText;
                 if (KeyBoardText.Length != 0)
                 {
-                    GetComponentInChildren<TextMesh>().text = "Edit Caption";
+                    GetComponentInChildren<TextMesh>().text = "Edit\nCaption";
                 }
                 else
                 {

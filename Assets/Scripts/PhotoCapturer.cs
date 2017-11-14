@@ -21,7 +21,7 @@ public class PhotoCapturer : MonoBehaviour
         }
         taking = true;
 
-        Debug.Log("starting to take photo");
+        //Debug.Log("starting to take photo");
         mc = mci;
         Resolution cameraResolution = PhotoCapture.SupportedResolutions.OrderByDescending((res) => res.width * res.height).First();
         targetTexture = new Texture2D(cameraResolution.width, cameraResolution.height);
@@ -37,8 +37,8 @@ public class PhotoCapturer : MonoBehaviour
             // Activate the camera
             photoCaptureObject.StartPhotoModeAsync(cameraParameters, delegate (PhotoCapture.PhotoCaptureResult result) {
                 // Take a picture
-                Debug.Log("create, photo is null: " + (photoCaptureObject == null).ToString());
-                Debug.Log("here");
+                //Debug.Log("create, photo is null: " + (photoCaptureObject == null).ToString());
+                //Debug.Log("here");
                 photoCaptureObject.TakePhotoAsync(OnCapturedPhotoToMemory);
             });
         });
@@ -46,11 +46,11 @@ public class PhotoCapturer : MonoBehaviour
 
     void OnCapturedPhotoToMemory(PhotoCapture.PhotoCaptureResult result, PhotoCaptureFrame photoCaptureFrame)
     {
-        Debug.Log("copying to memory");
+        //Debug.Log("copying to memory");
         photoCaptureFrame.UploadImageDataToTexture(targetTexture);
         photoCaptureObject.StopPhotoModeAsync(OnStoppedPhotoMode);
         mc.GetPhoto(targetTexture);
-        Debug.Log("done");
+        //Debug.Log("done");
     }
 
     void OnStoppedPhotoMode(PhotoCapture.PhotoCaptureResult result)
@@ -58,7 +58,7 @@ public class PhotoCapturer : MonoBehaviour
         // Shutdown the photo capture resource
         photoCaptureObject.Dispose();
         photoCaptureObject = null;
-        Debug.Log("disposed of photo");
+        //Debug.Log("disposed of photo");
         taking = false;
     }
 }

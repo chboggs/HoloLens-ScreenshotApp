@@ -16,6 +16,12 @@ TagManager:
   - TopLevelButtons
   - CaptionText
   - MessageText
+  - HelpBack
+  - HelpNext
+  - HelpOverall
+  - HelpDrawing
+  - HelpCropping
+  - HelpCaptions
   layers:
   - Default
   - TransparentFX
