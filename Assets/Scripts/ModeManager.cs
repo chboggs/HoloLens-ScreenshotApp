@@ -75,7 +75,8 @@ public class ModeManager : MonoBehaviour
         Edit,
         Gallery,
         Share,
-        Help
+        Help,
+        Login
     }
 }
 
