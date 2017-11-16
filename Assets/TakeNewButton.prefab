@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: 23628807038082604}
   - component: {fileID: 114430415437835272}
   - component: {fileID: 114628636787313118}
+  - component: {fileID: 114880182069815848}
   m_Layer: 0
   m_Name: TakeNewButton
   m_TagString: Untagged
@@ -265,3 +266,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HoverColor: {fileID: 2100000, guid: e5703db493a3818428465210d49acfb7, type: 2}
   MainColor: {fileID: 2100000, guid: 9bc6f119977588c41a9512390dedc42c, type: 2}
+--- !u!114 &114880182069815848
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1053406779685956}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82e8abcb86f44e44183bbd860bc09f8a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CustomKeyWord: 
+  UseKeyWord: 1

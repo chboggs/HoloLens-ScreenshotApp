@@ -7,13 +7,26 @@ using UnityEngine.Windows.Speech;
 public class SpeechManager : MonoBehaviour
 {
     KeywordRecognizer keywordRecognizer = null;
+    KeywordRecognizer buttonRecognizer = null;
     Dictionary<string, System.Action> keywords = new Dictionary<string, System.Action>();
+    Dictionary<string, GameObject> buttonWords = new Dictionary<string, GameObject>();
 
     MainController mc;
 
     // Use this for initialization
-    void Start()
+    void Awake()
     {
+        Debug.Log("registering buttons");
+        foreach (KeywordAssigner assigner in FindObjectsOfType<KeywordAssigner>())
+        {
+            if (assigner.UseKeyWord && !buttonWords.ContainsKey(assigner.GetKeyWord())){
+                Debug.LogFormat("Registering button: {0}", assigner.gameObject.name);
+
+                buttonWords.Add(assigner.GetKeyWord(), assigner.gameObject);
+            }
+        }
+        Debug.Log("done registering buttons");
+
         mc = GameObject.FindGameObjectWithTag("Controller").GetComponent<MainController>();
         keywords.Add("Test", () =>
         {
@@ -33,102 +46,29 @@ public class SpeechManager : MonoBehaviour
             mc.SwitchToCapture();
         });
 
-        keywords.Add("Save and Edit", () =>
-        {
-            Debug.Log("Edit said");
-            mc.SwitchToEdit();
-        });
-        
         keywords.Add("Gallery", () =>
         {
             Debug.Log("To Gallery said");
-            GameObject.FindGameObjectWithTag("Controller").GetComponent<MainController>().SwitchToGallery();
+            mc.SwitchToGallery();
 
-        });
-      
-        keywords.Add("Draw", () =>
-        {
-            Debug.Log("Draw said");
-            GameObject.FindGameObjectWithTag("EditManager").GetComponent<EditManagerScript>().StartDraw();
-
-        });
-
-        keywords.Add("Crop", () =>
-        {
-            Debug.Log("Crop said");
-            GameObject.FindGameObjectWithTag("EditManager").GetComponent<EditManagerScript>().StartCrop();
-
-        });
-
-        keywords.Add("Apply", () =>
-        {
-            Debug.Log("Apply said");
-            GameObject.FindGameObjectWithTag("EditManager").GetComponent<EditManagerScript>().ApplyCrop();
-
-        });
-
-        keywords.Add("Cancel", () =>
-        {
-            Debug.Log("Cancel said");
-            GameObject.FindGameObjectWithTag("EditManager").GetComponent<EditManagerScript>().CancelCrop();
-
-        });
-
-        keywords.Add("Undo", () =>
-        {
-            Debug.Log("undo said");
-            GameObject.FindGameObjectWithTag("EditManager").GetComponent<EditManagerScript>().Undo();
-
-        });
-
-        keywords.Add("Save and Share", () =>
-        {
-            Debug.Log("Save and share said");
-            GameObject.FindGameObjectWithTag("DrawingCanvas").GetComponent<ImageUploader>().StartUpload();
-
-        });
-
-        keywords.Add("Back", () =>
-        {
-            Debug.Log("Back said");
-            GameObject.FindGameObjectWithTag("GalleryController").GetComponent<GalleryManager>().Previous();
-
-        });
-
-        keywords.Add("Next", () =>
-        {
-            Debug.Log("Next said");
-            GameObject.FindGameObjectWithTag("GalleryController").GetComponent<GalleryManager>().Next();
-
-        });
-
-        keywords.Add("Add caption", () =>
-        {
-            Debug.Log("adding caption");
-            GameObject.FindObjectOfType<TakeTextInput>().TakeKeyboardInput();
-
-        });
-
-        keywords.Add("Edit caption", () =>
-        {
-            Debug.Log("adding caption");
-            GameObject.FindObjectOfType<TakeTextInput>().TakeKeyboardInput();
         });
 
         keywords.Add("Help", () =>
         {
-            Debug.Log("adding caption");
+            Debug.Log("Help said");
             mc.SwitchToHelp();
         });
 
-
         // Tell the KeywordRecognizer about our keywords.
         keywordRecognizer = new KeywordRecognizer(keywords.Keys.ToArray());
-
-        // Register a callback for the KeywordRecognizer and start recognizing!
         keywordRecognizer.OnPhraseRecognized += KeywordRecognizer_OnPhraseRecognized;
         keywordRecognizer.Start();
-        Debug.Log("started voice recog");
+        
+        buttonRecognizer = new KeywordRecognizer(buttonWords.Keys.ToArray());
+        buttonRecognizer.OnPhraseRecognized += ButtonRecognized;
+        buttonRecognizer.Start();
+        
+        Debug.Log("Started speech");
     }
 
     private void KeywordRecognizer_OnPhraseRecognized(PhraseRecognizedEventArgs args)
@@ -138,6 +78,24 @@ public class SpeechManager : MonoBehaviour
         if (keywords.TryGetValue(args.text, out keywordAction))
         {
             keywordAction.Invoke();
+        }
+    }
+
+    void ButtonRecognized(PhraseRecognizedEventArgs args)
+    {
+        GameObject button;
+        Debug.Log("button recognized: " + args.text);
+        if (buttonWords.TryGetValue(args.text, out button))
+        {
+            InvokeButton(button);
+        }
+    }
+
+    void InvokeButton(GameObject button)
+    {
+        if (button.activeSelf)
+        {
+            button.GetComponent<GazeReceiver>().Tapped(new Ray(Vector3.zero, Vector3.zero));
         }
     }
 }
