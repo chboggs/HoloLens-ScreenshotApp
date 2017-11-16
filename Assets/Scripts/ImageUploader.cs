@@ -23,6 +23,12 @@ public class ImageUploader : MonoBehaviour
     IEnumerator Upload()
     {
         Debug.Log("Starting Upload");
+
+        if (!FindObjectOfType<LoginManager>().HasLogin())
+        {
+            FindObjectOfType<ModeManager>().SetMode(ModeManager.ModeManagerMode.Login);
+        }
+
         Texture2D image;
         string caption;
         try
@@ -42,6 +48,8 @@ public class ImageUploader : MonoBehaviour
         Debug.Log("uploading");
         form.AddBinaryData("image", rawImage, "screenshot.png", "image/png");
         form.AddField("body", caption);
+        form.AddField("username", FindObjectOfType<LoginManager>().GetUsername());
+        form.AddField("password", FindObjectOfType<LoginManager>().GetPassword());
 
         WWW w = new WWW(UploadRoute, form);
         yield return w;
