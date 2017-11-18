@@ -15,12 +15,12 @@ public class CanvasSizer : MonoBehaviour
         mr = GetComponent<Renderer>();
         maxWidth = transform.localScale.x;
         maxHeight = transform.localScale.z;
-        Debug.LogFormat("cs starting, mr is null: {0}", mr == null);
+        //Debug.LogFormat("cs starting, mr is null: {0}", mr == null);
     }
 
     public void SetImage(Texture2D image)
     {
-        Debug.LogFormat("cs set image: mr is null: {0}", mr == null);
+        //Debug.LogFormat("cs set image: mr is null: {0}", mr == null);
         mr.material.mainTexture = image;
 
         float canvasRatio = maxWidth / maxHeight;

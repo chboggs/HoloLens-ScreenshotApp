@@ -75,9 +75,15 @@ public class MainController : MonoBehaviour
 			FindObjectOfType<EditManagerScript>().SetImage(editedImage);
         }
 		if (mm.currentMode == ModeManager.ModeManagerMode.Gallery) {
-			mm.SetMode (ModeManager.ModeManagerMode.Edit);
-			FindObjectOfType<EditManagerScript>().SetImage(FindObjectOfType<GalleryManager>().GetSelected());
-		}
+            Texture2D temp = FindObjectOfType<GalleryManager>().GetSelected();
+            mm.SetMode (ModeManager.ModeManagerMode.Edit);
+            FindObjectOfType<EditManagerScript>().SetImage(temp);
+
+        }
+        if (mm.currentMode == ModeManager.ModeManagerMode.Login)
+        {
+            mm.SetMode(ModeManager.ModeManagerMode.Edit);
+        }
 	
     }
 
@@ -90,9 +96,6 @@ public class MainController : MonoBehaviour
     {
         if (mm.currentMode == ModeManager.ModeManagerMode.Init || mm.currentMode == ModeManager.ModeManagerMode.Edit)
         {
-			if (mm.currentMode == ModeManager.ModeManagerMode.Edit) {
-				AddPhotoToRoll (FindObjectOfType<EditManagerScript> ().GetCurrentTexture ());
-			}
             mm.SetMode(ModeManager.ModeManagerMode.Gallery);
 			FindObjectOfType<GalleryManager> ().Reset ();
         }

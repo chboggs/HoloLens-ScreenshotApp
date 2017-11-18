@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class ImageUploader : MonoBehaviour
 {
+    public LoginManager loginmanager;
     public string UploadRoute = "http://madeup.heroku.com/upload";
 
     public GameObject TextObject;
@@ -24,16 +25,18 @@ public class ImageUploader : MonoBehaviour
     {
         Debug.Log("Starting Upload");
 
-        if (!FindObjectOfType<LoginManager>().HasLogin())
+        if (!loginmanager.HasLogin())
         {
+            Debug.Log("Not Logged in, switching mode");
             FindObjectOfType<ModeManager>().SetMode(ModeManager.ModeManagerMode.Login);
+            yield break;
         }
 
         Texture2D image;
         string caption;
         try
         {
-             image = GetComponent<Renderer>().material.mainTexture as Texture2D;
+             image = GetComponent<CanvasSizer>().GetImage();
              caption = FindObjectOfType<TakeTextInput>().KeyBoardText;
         }
 
@@ -45,17 +48,16 @@ public class ImageUploader : MonoBehaviour
         Debug.Log("Caption is: " + caption);
         WWWForm form = new WWWForm();
         byte[] rawImage = image.EncodeToPNG();
-        Debug.Log("uploading");
         form.AddBinaryData("image", rawImage, "screenshot.png", "image/png");
         form.AddField("body", caption);
-        form.AddField("username", FindObjectOfType<LoginManager>().GetUsername());
-        form.AddField("password", FindObjectOfType<LoginManager>().GetPassword());
-
+        form.AddField("username", loginmanager.GetUsername());
+        form.AddField("password", loginmanager.GetPassword());
         WWW w = new WWW(UploadRoute, form);
         yield return w;
         if (!string.IsNullOrEmpty(w.error))
         {
             print(w.error);
+            Debug.Log(w.error);
             StartCoroutine(ShowMessage(w.error));
         }
         else

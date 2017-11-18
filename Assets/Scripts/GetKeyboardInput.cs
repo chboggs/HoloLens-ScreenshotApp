@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class GetKeyboardInput : MonoBehaviour
 {
     bool waiting = false;
+    public string overridetext = "Jim";
     
     string GetText()
     {
@@ -19,6 +20,12 @@ public class GetKeyboardInput : MonoBehaviour
 
     public void GetInput()
     {
+        if (overridetext.Length != 0)
+        {
+            Debug.Log("overriding text for testing");
+            SetText(overridetext);
+            return;
+        }
         try
         {
             UnityEngine.TouchScreenKeyboard keyboard = TouchScreenKeyboard.Open(GetText(), TouchScreenKeyboardType.Default, false, true, false, false);

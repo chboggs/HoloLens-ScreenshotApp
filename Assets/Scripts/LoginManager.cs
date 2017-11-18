@@ -10,6 +10,7 @@ public class LoginManager : MonoBehaviour {
 
     public bool HasLogin()
     {
+        Debug.Log("checking for login");
         return UserBox.GetComponent<Text>().text.Length != 0 && PassBox.GetComponent<Text>().text.Length != 0;
     }
 

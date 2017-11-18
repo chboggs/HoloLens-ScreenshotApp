@@ -16,7 +16,7 @@ public class ModeManager : MonoBehaviour
         {
             Register(assigner.gameObject, assigner.mode);
         }
-        Debug.Log("registered: " + records.Count.ToString());
+        //Debug.Log("registered: " + records.Count.ToString());
     }
 
     public void Register(GameObject obj, ModeManagerMode mode)

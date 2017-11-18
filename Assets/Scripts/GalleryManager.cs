@@ -11,7 +11,7 @@ public class GalleryManager : MonoBehaviour
     CanvasSizer cs;
 
     // Use this for initialization
-    void Start()
+    void Awake()
     {
         main = FindObjectOfType<MainController>();
         cs = GetComponentInChildren<CanvasSizer>();
@@ -21,18 +21,24 @@ public class GalleryManager : MonoBehaviour
     {
         Debug.Log("reset");
         photoIndex = -1;
-        if (InitIndex())
-        {
-            UpdateView();
-        }
+        InitIndex();
+        UpdateView();
     }
 
     bool InitIndex()
     {
+        Debug.Log("starting init");
         if (photoIndex == -1)
         {
-            List<Texture2D> cc = main.CapturedPhotos;
-            photoIndex = cc.Count - 1;
+            try
+            {
+                photoIndex = main.CapturedPhotos.Count - 1;
+            }
+            catch (System.Exception e)
+            {
+                Debug.Log(e);
+            }
+            
         }
         Debug.Log("init, index: " + photoIndex.ToString());
         return photoIndex >= 0;
@@ -40,12 +46,14 @@ public class GalleryManager : MonoBehaviour
 
     public void Previous()
     {
+        Debug.Log(main.CapturedPhotos.Count);
         photoIndex = Mathf.Max(0, photoIndex - 1);
         UpdateView();
     }
 
     public void Next()
     {
+        Debug.Log(main.CapturedPhotos.Count);
         photoIndex = Mathf.Min(main.CapturedPhotos.Count - 1, photoIndex + 1);
         UpdateView();
     }

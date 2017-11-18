@@ -14,7 +14,7 @@ public class SpeechManager : MonoBehaviour
     MainController mc;
 
     // Use this for initialization
-    void Awake()
+    void Start()
     {
         Debug.Log("registering buttons");
         foreach (KeywordAssigner assigner in FindObjectsOfType<KeywordAssigner>())
@@ -59,14 +59,19 @@ public class SpeechManager : MonoBehaviour
             mc.SwitchToHelp();
         });
 
+        keywords.Add("crack", () =>
+        {
+            Debug.Log("crack said");
+        });
+
         // Tell the KeywordRecognizer about our keywords.
         keywordRecognizer = new KeywordRecognizer(keywords.Keys.ToArray());
         keywordRecognizer.OnPhraseRecognized += KeywordRecognizer_OnPhraseRecognized;
         keywordRecognizer.Start();
         
-        buttonRecognizer = new KeywordRecognizer(buttonWords.Keys.ToArray());
-        buttonRecognizer.OnPhraseRecognized += ButtonRecognized;
-        buttonRecognizer.Start();
+        //buttonRecognizer = new KeywordRecognizer(buttonWords.Keys.ToArray());
+        //buttonRecognizer.OnPhraseRecognized += ButtonRecognized;
+        //buttonRecognizer.Start();
         
         Debug.Log("Started speech");
     }

@@ -153,4 +153,9 @@ public class EditManagerScript : MonoBehaviour
             cc.Tap(r);
         }
     }
+
+    public void SaveToGallery()
+    {
+        FindObjectOfType<MainController>().AddPhotoToRoll(GetCurrentTexture());
+    }
 }
