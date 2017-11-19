@@ -10,12 +10,17 @@ public class GazeInputManager : MonoBehaviour
     public bool dragging = false;
     public bool tapped = false;
     public GameObject cursor;
+    public float DragTimeOut = 0.2f;
 
     public GameObject cameraReference;
 
     Vector3 cameraLocation;
     Vector3 cameraDirection;
     Vector3 dragChange;
+
+    float lastDrag = 0;
+    bool firstIgnored = false;
+
 
     public float DragStartDistance = 0.5f;
     public GestureRecognizer recognizer;
@@ -40,7 +45,7 @@ public class GazeInputManager : MonoBehaviour
 
     IEnumerator Gazing()
     {
-        //Debug.Log("starting gazing");
+        Debug.Log("starting gazing");
         GazeReceiver focused = null;
         while (gazing)
         {
@@ -92,7 +97,7 @@ public class GazeInputManager : MonoBehaviour
 
     IEnumerator Dragging()
     {
-        //Debug.Log("starting dragging");
+        Debug.Log("starting dragging");
 
         cameraLocation = cameraReference.transform.position;
         cameraDirection = cameraReference.transform.forward;
@@ -102,12 +107,16 @@ public class GazeInputManager : MonoBehaviour
         GazeReceiver gazedReceiver = startReceiver;
 
         Vector3 dragStartLocation = cameraLocation + cameraDirection.normalized * DragStartDistance;
-
+        firstIgnored = false;
         if (startReceiver != null)
         {
             startReceiver.DragStart(gazeRay);
             Debug.LogFormat("starting drag on {0}", startReceiver.gameObject.name);
         }
+
+        yield return null;
+
+        yield return null;
 
         while (dragging)
         {
@@ -139,7 +148,12 @@ public class GazeInputManager : MonoBehaviour
                 startReceiver.Drag(gazeRay);
             }
 
-
+            if (Time.time - lastDrag > DragTimeOut)
+            {
+                dragging = false;
+                Debug.Log("dragging timeout");
+            }
+            firstIgnored = true;
             yield return null;
         }
 
@@ -147,12 +161,14 @@ public class GazeInputManager : MonoBehaviour
         {
             startReceiver.DragEnd(gazeRay);
         }
-        if (gazedReceiver != null)
+        if (gazedReceiver != null && gazedReceiver !=startReceiver)
         {
             gazedReceiver.DragEnd(gazeRay);
         }
 
-        //Debug.Log("dragging ending");
+        gazing = true;
+        StartCoroutine(Gazing());
+        Debug.Log("dragging ending");
     }
 
     public void TapHandler(InteractionSourceKind source, int tapCount, Ray headRay)
@@ -162,23 +178,23 @@ public class GazeInputManager : MonoBehaviour
 
     public void ManipulationStartedFunc(InteractionSourceKind source, Vector3 cumulativeDelta, Ray headRay)
     {
-        Debug.LogFormat("manip started: {0:F2}",Time.time);
+        Debug.Log("manip started");
         dragging = true;
         gazing = false;
+        lastDrag = Time.time;
         StartCoroutine(Dragging());
     }
 
     public void ManipulationUpdatedFunc(InteractionSourceKind source, Vector3 cumulativeDelta, Ray headRay)
     {
         dragChange = cumulativeDelta;
+        lastDrag = Time.time;
     }
 
     public void ManipulationCompletedFunc(InteractionSourceKind source, Vector3 cumulativeDelta, Ray headRay)
     {
-        Debug.LogFormat("manip ended: {0:F2}", Time.time);
+        Debug.Log("manip ended");
         dragging = false;
-        gazing = true;
-        StartCoroutine(Gazing());
     }
 
     public GazeReceiver GetFocusedReceiver(Ray ray)

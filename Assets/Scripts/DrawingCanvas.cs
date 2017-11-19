@@ -61,7 +61,7 @@ public class DrawingCanvas : MonoBehaviour
 		RaycastHit hit;
 		if (Physics.Raycast(r.origin, r.direction, out hit))
 		{
-            Debug.Log("drawing point");
+            //Debug.Log("drawing point");
 			//append hit loc
 			Vector3 hitloc = transform.InverseTransformPoint (hit.point);
 
@@ -72,48 +72,6 @@ public class DrawingCanvas : MonoBehaviour
             }
 		}
 	}
-
-    public void DrawOld(Ray r)
-    {
-        Debug.Log("dragdrag");
-		if (tex == null)
-		{
-			StartDraw ();
-		}
-        Debug.Log("got drag in draw");
-        RaycastHit hit;
-        if (Physics.Raycast(r.origin, r.direction, out hit))
-        {
-            Vector2 hitcoord = hit.textureCoord;
-            //Debug.Log("drawing at: "+hitcoord.ToString());
-            //Debug.Log("tex is null: " + (tex == null).ToString());
-            //  tex.SetPixel(, Mathf.FloorToInt(hitcoord.y * tex.height), Color.red);
-            int x = Mathf.FloorToInt(hitcoord.x * tex.width);
-            int y = Mathf.FloorToInt(hitcoord.y * tex.height);
-			            
-            if (new Vector2(x - px, y - py).magnitude < MaxDistanceToConnect)
-            {
-                //fill 
-                Vector2 s = new Vector2(px, py);
-                Vector2 d = new Vector2(x, y);
-                for (int i = 1; i <=NumDrawsInConnect; i++)
-                {
-                    Vector2 l = Vector2.Lerp(s, d, (float)i / NumDrawsInConnect);
-                    DrawCircle(Mathf.FloorToInt(l.x), Mathf.FloorToInt(l.y));
-                }
-            }
-            else
-            {
-                DrawCircle(x, y);
-            }
-
-            px = x;
-            py = y;
-
-            //tex.SetPixels(data);
-            //tex.Apply();
-        }
-    }
     
     public void EndDraw()
     {
@@ -122,6 +80,8 @@ public class DrawingCanvas : MonoBehaviour
     }
 
 	public void Apply(){
+
+        Debug.Log("applying draw");
 
 		data = tex.GetPixels ();
 

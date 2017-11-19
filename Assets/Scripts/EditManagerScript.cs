@@ -31,13 +31,13 @@ public class EditManagerScript : MonoBehaviour
 
     public void SetImage(Texture2D image)
     {
-        Debug.Log("setimage editman");
+        //Debug.Log("setimage editman");
         SetCurrentTexture(image);
         UndoStack = new Stack<Texture2D>();
         StartDraw();
         CropButtons.SetActive(false);
         TLButtons.SetActive(true);
-        Debug.Log("setimage done");
+        //Debug.Log("setimage done");
     }
 
     public void StartDraw()
@@ -45,7 +45,7 @@ public class EditManagerScript : MonoBehaviour
         drawing = true;
         cropping = false;
         dc.StartDraw();
-        Debug.Log("Started draw ems");
+        //Debug.Log("Started draw ems");
     }
 
     public void StartCrop()
@@ -79,7 +79,7 @@ public class EditManagerScript : MonoBehaviour
     public Texture2D GetCurrentTexture()
     {
         Texture2D current = GameObject.FindGameObjectWithTag("Canvas").GetComponent<CanvasSizer>().GetImage();
-        Debug.Log("got current");
+        //Debug.Log("got current");
         Texture2D currentCopy = Instantiate(current) as Texture2D;
         return currentCopy;
     }
@@ -87,14 +87,14 @@ public class EditManagerScript : MonoBehaviour
     void AddToStack()
     {
         UndoStack.Push(GetCurrentTexture());
-        Debug.Log("added to stack");
+        //Debug.Log("added to stack");
     }
 
     public void Undo()
     {
         if (UndoStack.Count > 0)
         {
-            Debug.Log("undoing");
+            //Debug.Log("undoing");
             Texture2D restored = UndoStack.Pop();
             SetCurrentTexture(restored);
         }
@@ -108,10 +108,10 @@ public class EditManagerScript : MonoBehaviour
 
     public void StartDragging(Ray r)
     {
-        Debug.Log("start drag edit");
+        //Debug.Log("start drag edit");
         if (drawing)
         {
-            Debug.Log("add to stack for draw");
+            //Debug.Log("add to stack for draw");
             AddToStack();
             dc.StartDraw();
         }
@@ -131,16 +131,16 @@ public class EditManagerScript : MonoBehaviour
             cc.Dragging(r);
         }
         
-        Debug.Log("dragging in ems");
+        //Debug.Log("dragging in ems");
         if (drawing == true)
         {
-            Debug.Log("Dragdraw");
+            //Debug.Log("Dragdraw");
             dc.Draw(r);
         }
     }
 
 	public void EndDragging(Ray r){
-		Debug.Log ("recieved enddraw");
+		//Debug.Log ("recieved enddraw");
 		if (drawing) {
 			dc.Apply ();
 		}
@@ -148,6 +148,8 @@ public class EditManagerScript : MonoBehaviour
     
     public void SaveToGallery()
     {
+        Debug.Log("Saving");
         FindObjectOfType<MainController>().AddPhotoToRoll(GetCurrentTexture());
+        Debug.Log("Saved");
     }
 }

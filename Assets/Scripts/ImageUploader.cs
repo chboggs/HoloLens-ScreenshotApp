@@ -6,7 +6,8 @@ using UnityEngine.UI;
 public class ImageUploader : MonoBehaviour
 {
     public LoginManager loginmanager;
-    public string UploadRoute = "http://madeup.heroku.com/upload";
+    public EditManagerScript editmanager;
+    public string UploadRoute = "https://backend-498.herokuapp.com/api/new-image-hololens";
 
     public GameObject TextObject;
 
@@ -31,13 +32,11 @@ public class ImageUploader : MonoBehaviour
             FindObjectOfType<ModeManager>().SetMode(ModeManager.ModeManagerMode.Login);
             yield break;
         }
-
+        Debug.Log("here");
         Texture2D image;
-        string caption;
         try
         {
              image = GetComponent<CanvasSizer>().GetImage();
-             caption = FindObjectOfType<TakeTextInput>().KeyBoardText;
         }
 
         catch(Exception e)
@@ -45,17 +44,22 @@ public class ImageUploader : MonoBehaviour
             Debug.Log(e);
             yield break;
         }
-        Debug.Log("Caption is: " + caption);
+        Debug.LogFormat("Editman null {0}", editmanager == null);
+        editmanager.SaveToGallery();
+        Debug.Log("saved to gal");
         WWWForm form = new WWWForm();
         byte[] rawImage = image.EncodeToPNG();
         form.AddBinaryData("image", rawImage, "screenshot.png", "image/png");
-        form.AddField("body", caption);
         form.AddField("username", loginmanager.GetUsername());
         form.AddField("password", loginmanager.GetPassword());
+        Debug.Log("form made");
         WWW w = new WWW(UploadRoute, form);
         yield return w;
+
+
         if (!string.IsNullOrEmpty(w.error))
         {
+            
             print(w.error);
             Debug.Log(w.error);
             StartCoroutine(ShowMessage(w.error));

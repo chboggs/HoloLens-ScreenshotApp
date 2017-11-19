@@ -53,13 +53,13 @@ public class SpeechManager : MonoBehaviour
             Debug.Log("crack said");
         });
 
-        Debug.Log("registering buttons");
+        //Debug.Log("registering buttons");
         foreach (KeywordAssigner assigner in FindObjectsOfType<KeywordAssigner>())
         {
             string word = assigner.GetKeyWord();
             if (word != null && word.Length != 0 && !buttonWords.ContainsKey(word) && !keywords.ContainsKey(word))
             {
-                Debug.LogFormat("Registering button: {0}", assigner.GetKeyWord());
+                //Debug.LogFormat("Registering button: {0}", assigner.GetKeyWord());
 
                 buttonWords.Add(assigner.GetKeyWord(), assigner.gameObject);
             }
@@ -100,7 +100,7 @@ public class SpeechManager : MonoBehaviour
 
     void InvokeButton(GameObject button)
     {
-        if (button.activeSelf)
+        if (button.activeInHierarchy)
         {
             button.GetComponent<GazeReceiver>().Tapped(new Ray(Vector3.zero, Vector3.zero));
         }

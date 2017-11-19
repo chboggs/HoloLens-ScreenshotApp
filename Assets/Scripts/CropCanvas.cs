@@ -5,9 +5,6 @@ using UnityEngine;
 
 public class CropCanvas : MonoBehaviour
 {
-    //public float Canvasdimx = 5;
-    //public float Canvasdimy = 5;
-
     GameObject cube1;
     GameObject cube2;
 
@@ -16,13 +13,9 @@ public class CropCanvas : MonoBehaviour
     Vector2 coords1;
     Vector2 coords2;
 
-    bool upperCubeDragging;
+    //bool upperCubeDragging;
     public GameObject CubePrefab;
-    bool canDrag = false;
-    bool starting = false;
-
     bool cropping = false;
-
     bool useCube1 = false;
 
     CanvasSizer cs;
@@ -39,9 +32,10 @@ public class CropCanvas : MonoBehaviour
         {
             //Debug.Log("lateupdate cropcanvas");
             cube1.transform.position = cs.GetWorldPosition(coords1);
-            cube1.transform.up = transform.up;
             cube2.transform.position = cs.GetWorldPosition(coords2);
-            cube2.transform.up = transform.up;
+
+            cube1.transform.localRotation = transform.parent.localRotation;
+            cube2.transform.localRotation = transform.parent.localRotation;
         }
     }
 
@@ -58,8 +52,20 @@ public class CropCanvas : MonoBehaviour
 
     public void StartDrag(Ray r)
     {
-        starting = true;
         Line.SetActive(true);
+
+        RaycastHit hit;
+
+        LayerMask mask = LayerMask.GetMask("EditCanvas");
+        //Debug.DrawRay(r.origin, r.direction * 100, Color.green, 3);
+        if (Physics.Raycast(r.origin, r.direction, out hit, mask))
+        {
+            //hit occurred
+            Texture2D image = cs.GetImage();
+            Vector2 textureCoord = Vector2.Scale(hit.textureCoord, new Vector2(image.width, image.height));
+            useCube1 = Cube1Closer(textureCoord);
+            Debug.Log((useCube1) ? "using cube1" : "using cube2");
+        }
     }
 
     public void Apply()
@@ -102,36 +108,32 @@ public class CropCanvas : MonoBehaviour
 
     public void Dragging(Ray r)
     {
-        RaycastHit hit;
-
-        LayerMask mask = LayerMask.GetMask("EditCanvas");
-        //Debug.DrawRay(r.origin, r.direction * 100, Color.green, 3);
-        if (Physics.Raycast(r.origin, r.direction, out hit, mask))
+        if (cropping)
         {
-            //hit occurred
-            Texture2D image = cs.GetImage();
-            Vector2 textureCoord = Vector2.Scale(hit.textureCoord, new Vector2(image.width, image.height));
-            if (starting)
-            {
-                useCube1 = Cube1Closer(textureCoord);
-            }
-            starting = false;
+            RaycastHit hit;
 
-            //GameObject cube = (useCube1) ? cube1 : cube2;
-            Debug.LogFormat("moving cube: {0}", useCube1 ? "cube1" : "cube2");
-            if (useCube1)
+            LayerMask mask = LayerMask.GetMask("EditCanvas");
+            //Debug.DrawRay(r.origin, r.direction * 100, Color.green, 3);
+            if (Physics.Raycast(r.origin, r.direction, out hit, mask))
             {
-                coords1 = textureCoord;
-            }
-            else
-            {
-                coords2 = textureCoord;
-            }
+                //hit occurred
+                Texture2D image = cs.GetImage();
+                Vector2 textureCoord = Vector2.Scale(hit.textureCoord, new Vector2(image.width, image.height));
 
-            CropRect cropRect = GetCropRect();
-            Line.transform.localPosition = new Vector3(cropRect.x / image.width * 10 - 5, 0.05, cropRect.y / image.height * 10 - 5);
-            Line.transform.localScale = new Vector3(cropRect.width / image.width * 10, 0, cropRect.height / image.height * 10);
+                //GameObject cube = (useCube1) ? cube1 : cube2;
+                if (useCube1)
+                {
+                    coords1 = textureCoord;
+                }
+                else
+                {
+                    coords2 = textureCoord;
+                }
 
+                CropRect cropRect = GetCropRect();
+                Line.transform.localPosition = new Vector3((float)cropRect.x / image.width * -10 + 5, 0.01f, (float)cropRect.y / image.height * -10 + 5);
+                Line.transform.localScale = new Vector3(-(float)cropRect.width / image.width * 10, 0, -(float)cropRect.height / image.height * 10);
+            }
         }
     }
 
