@@ -20,6 +20,8 @@ public class CropCanvas : MonoBehaviour
     bool starting = false;
 
     bool cropping = false;
+    
+    bool useCube1 = false;
 
     CanvasSizer cs;
 
@@ -56,32 +58,6 @@ public class CropCanvas : MonoBehaviour
         starting = true;
     }
 
-    public void Tap(Ray r)
-    {
-        RaycastHit hit;
-
-        LayerMask mask = LayerMask.GetMask("EditCanvas");
-        //Debug.DrawRay(r.origin, r.direction * 100, Color.green, 3);
-        if (Physics.Raycast(r.origin, r.direction, out hit, mask))
-        {
-            //hit occurred
-            Texture2D image = cs.GetImage();
-            Vector2 textureCoord = Vector2.Scale(hit.textureCoord, new Vector2(image.width, image.height));
-            bool useCube1 = Cube1Closer(textureCoord);
-
-            //GameObject cube = (useCube1) ? cube1 : cube2;
-            Debug.LogFormat("moving cube: {0}", useCube1 ? "cube1" : "cube2");
-            if (useCube1)
-            {
-                coords1 = textureCoord;
-            }
-            else
-            {
-                coords2 = textureCoord;
-            }
-        }
-    }
-
     public void Apply()
     {
         Debug.Log("applying crop");
@@ -112,69 +88,37 @@ public class CropCanvas : MonoBehaviour
         Debug.Log("done applying");
     }
 
-    /*
+    
     public void Dragging(Ray r)
     {
-        if (starting)
+        RaycastHit hit;
+
+        LayerMask mask = LayerMask.GetMask("EditCanvas");
+        //Debug.DrawRay(r.origin, r.direction * 100, Color.green, 3);
+        if (Physics.Raycast(r.origin, r.direction, out hit, mask))
         {
-            starting = false;
-            RaycastHit hit2;
-
-            LayerMask mask2 = LayerMask.GetMask("EditCanvas");
-            Debug.DrawRay(r.origin, r.direction * 100, Color.green, 3);
-            if (Physics.Raycast(r.origin, r.direction, out hit2, mask2))
+            //hit occurred
+            Texture2D image = cs.GetImage();
+            Vector2 textureCoord = Vector2.Scale(hit.textureCoord, new Vector2(image.width, image.height));
+            if (starting)
             {
-                Debug.Log("drag start hit: " + hit2.collider.gameObject.name);
-                if (hit2.collider.gameObject.CompareTag("Canvas"))
-                {
+                useCube1 = Cube1Closer(textureCoord);
+            }
+            starting = false;
 
-                    Debug.Log("hit coords: " + hit2.textureCoord.ToString("F3"));
-                    float xloc = PixelToLocX(hit2.textureCoord.x * tex.width);
-                    float yloc = PixelToLocY(hit2.textureCoord.y * tex.height);
-
-                    Vector3 dragStartLoc = new Vector3(xloc, 0, yloc);
-
-                    Debug.LogFormat("drag start: " + dragStartLoc.ToString("F3"));
-                    Debug.LogFormat("upper: " + UpperCube.transform.localPosition.ToString("F3"));
-                    Debug.LogFormat("lower: " + LowerCube.transform.localPosition.ToString("F3"));
-
-
-                    Debug.LogFormat("upperdist: {0}, lowerdist:{1}", (UpperCube.transform.localPosition - dragStartLoc).magnitude, (LowerCube.transform.localPosition - dragStartLoc).magnitude);
-
-                    upperCubeDragging = (UpperCube.transform.localPosition - dragStartLoc).magnitude < (LowerCube.transform.localPosition - dragStartLoc).magnitude;
-                    canDrag = true;
-                }
+            //GameObject cube = (useCube1) ? cube1 : cube2;
+            Debug.LogFormat("moving cube: {0}", useCube1 ? "cube1" : "cube2");
+            if (useCube1)
+            {
+                coords1 = textureCoord;
             }
             else
             {
-                Debug.Log("no hit");
-                canDrag = false;
+                coords2 = textureCoord;
             }
-
-            //Debug.LogFormat("upperdist: {0}, lowerdist: {1}", (upperDirect - aimDirection).magnitude, (lowerDirect - aimDirection).magnitude);
-
-            //upperCubeDragging = (upperDirect - aimDirection).magnitude < (lowerDirect - aimDirection).magnitude;
-            Debug.LogFormat("started dragging crop, upper:{0}", upperCubeDragging);
-        }
-
-
-        if (!canDrag)
-        {
-            return;
-        }
-        RaycastHit hit;
-        LayerMask mask = LayerMask.GetMask("EditCanvas");
-        if (Physics.Raycast(r.origin, r.direction, out hit, mask))
-        {
-            Vector2 hitcoord = hit.textureCoord;
-            //Debug.Log("hit: " + hit.collider.gameObject.name);
-
-            //Debug.LogFormat("dragging at {0},{1}", hitcoord.x, hitcoord.y);
-            GameObject cube = (upperCubeDragging) ? UpperCube : LowerCube;
-            cube.transform.localPosition = new Vector3(PixelToLocX(hitcoord.x * tex.width), 0, PixelToLocY(hitcoord.y * tex.height));
         }
     }
-    */
+    
     bool Cube1Closer(Vector2 textureCoord)
     {
         return (textureCoord - coords1).magnitude < (textureCoord - coords2).magnitude;

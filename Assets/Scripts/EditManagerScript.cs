@@ -124,13 +124,13 @@ public class EditManagerScript : MonoBehaviour
 
     public void Dragging(Ray r)
     {
-        /*
+        
         if (cropping == true)
         {
             //Debug.DrawRay(r.origin, r.direction);
             cc.Dragging(r);
         }
-        */
+        
         Debug.Log("dragging in ems");
         if (drawing == true)
         {
@@ -145,15 +145,7 @@ public class EditManagerScript : MonoBehaviour
 			dc.Apply ();
 		}
 	}
-
-    public void Tap(Ray r)
-    {
-        if (cropping)
-        {
-            cc.Tap(r);
-        }
-    }
-
+    
     public void SaveToGallery()
     {
         FindObjectOfType<MainController>().AddPhotoToRoll(GetCurrentTexture());
