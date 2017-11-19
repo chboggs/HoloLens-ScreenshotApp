@@ -6,7 +6,7 @@ using UnityEngine.Windows.Speech;
 
 public class SpeechManager : MonoBehaviour
 {
-    KeywordRecognizer keywordRecognizer = null;
+    public KeywordRecognizer keywordRecognizer = null;
     KeywordRecognizer buttonRecognizer = null;
     Dictionary<string, System.Action> keywords = new Dictionary<string, System.Action>();
     Dictionary<string, GameObject> buttonWords = new Dictionary<string, GameObject>();
@@ -14,26 +14,15 @@ public class SpeechManager : MonoBehaviour
     MainController mc;
 
     // Use this for initialization
-    void Start()
+    void Awake()
     {
-        Debug.Log("registering buttons");
-        foreach (KeywordAssigner assigner in FindObjectsOfType<KeywordAssigner>())
-        {
-            if (assigner.UseKeyWord && !buttonWords.ContainsKey(assigner.GetKeyWord())){
-                Debug.LogFormat("Registering button: {0}", assigner.gameObject.name);
-
-                buttonWords.Add(assigner.GetKeyWord(), assigner.gameObject);
-            }
-        }
-        Debug.Log("done registering buttons");
-
         mc = GameObject.FindGameObjectWithTag("Controller").GetComponent<MainController>();
-        keywords.Add("Test", () =>
+        keywords.Add("Recognize this", () =>
         {
             // Call the OnReset method on every descendant object.
             Debug.Log("test");
         });
-        
+
         keywords.Add("Capture Photo", () =>
         {
             Debug.Log("photo");
@@ -64,15 +53,32 @@ public class SpeechManager : MonoBehaviour
             Debug.Log("crack said");
         });
 
+        Debug.Log("registering buttons");
+        foreach (KeywordAssigner assigner in FindObjectsOfType<KeywordAssigner>())
+        {
+            string word = assigner.GetKeyWord();
+            if (word != null && word.Length != 0 && !buttonWords.ContainsKey(word) && !keywords.ContainsKey(word))
+            {
+                Debug.LogFormat("Registering button: {0}", assigner.GetKeyWord());
+
+                buttonWords.Add(assigner.GetKeyWord(), assigner.gameObject);
+            }
+        }
+        Debug.Log("done registering buttons");
+
+        string[] keyArray = keywords.Keys.ToArray().Concat(buttonWords.Keys.ToArray()).ToArray();
+
+        Debug.Log(string.Join(",", keyArray));
+
         // Tell the KeywordRecognizer about our keywords.
-        keywordRecognizer = new KeywordRecognizer(keywords.Keys.ToArray());
+        keywordRecognizer = new KeywordRecognizer(keyArray, ConfidenceLevel.Low);
         keywordRecognizer.OnPhraseRecognized += KeywordRecognizer_OnPhraseRecognized;
         keywordRecognizer.Start();
-        
+
         //buttonRecognizer = new KeywordRecognizer(buttonWords.Keys.ToArray());
         //buttonRecognizer.OnPhraseRecognized += ButtonRecognized;
         //buttonRecognizer.Start();
-        
+
         Debug.Log("Started speech");
     }
 
@@ -80,17 +86,13 @@ public class SpeechManager : MonoBehaviour
     {
         Debug.Log("recognized");
         System.Action keywordAction;
+        GameObject button;
+
         if (keywords.TryGetValue(args.text, out keywordAction))
         {
             keywordAction.Invoke();
         }
-    }
-
-    void ButtonRecognized(PhraseRecognizedEventArgs args)
-    {
-        GameObject button;
-        Debug.Log("button recognized: " + args.text);
-        if (buttonWords.TryGetValue(args.text, out button))
+        else if (buttonWords.TryGetValue(args.text, out button))
         {
             InvokeButton(button);
         }

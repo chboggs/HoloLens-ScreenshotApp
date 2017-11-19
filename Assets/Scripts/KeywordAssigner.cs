@@ -7,6 +7,10 @@ public class KeywordAssigner : MonoBehaviour {
     public bool UseKeyWord = true;
     public string GetKeyWord()
     {
+        if (!UseKeyWord)
+        {
+            return null;
+        }
         if (CustomKeyWord.Length != 0)
         {
             return CustomKeyWord;
