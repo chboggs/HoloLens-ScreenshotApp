@@ -14,8 +14,5 @@ Team Members:
 * Hit "Build">"Deploy ScreenshotTool"
 * In the event Build is sucessful, but Deploy fails, hit "Build">"Deploy ScreenshotTool" again
 
-## Link to WebApp:
-TBD
-
 ## WebApp Source Link
 https://github.com/chboggs/ScreenshotApp-Backend
