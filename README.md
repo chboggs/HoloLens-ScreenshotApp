@@ -14,9 +14,8 @@ Team Members:
 * Hit "Build">"Deploy ScreenshotTool"
 * In the event Build is sucessful, but Deploy fails, hit "Build">"Deploy ScreenshotTool" again
 
-## To See Shared Images:
-* Log into ar6screenshot@gmail.com
-* Password: alexchrischristophcody
+## Link to WebApp:
+TBD
 
-## Backend Link
+## WebApp Source Link
 https://github.com/chboggs/ScreenshotApp-Backend
