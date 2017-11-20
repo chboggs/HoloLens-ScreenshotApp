@@ -48,6 +48,12 @@ public class SpeechManager : MonoBehaviour
             mc.SwitchToHelp();
         });
 
+        keywords.Add("Log In", () =>
+        {
+            Debug.Log("login said");
+            mc.SwitchToLogin();
+        });
+
         keywords.Add("crack", () =>
         {
             Debug.Log("crack said");

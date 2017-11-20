@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
+using SimpleJSON;
 
 public class ImageUploader : MonoBehaviour
 {
@@ -56,18 +57,21 @@ public class ImageUploader : MonoBehaviour
         WWW w = new WWW(UploadRoute, form);
         yield return w;
 
+        string response = w.text;
 
-        if (!string.IsNullOrEmpty(w.error))
+        var parsed = SimpleJSON.JSON.Parse(response);
+
+        string msg = parsed["msg"];
+        Debug.Log("message");
+
+        if (!string.IsNullOrEmpty(msg))
         {
-            
-            print(w.error);
-            Debug.Log(w.error);
-            StartCoroutine(ShowMessage(w.error));
+            Debug.Log(msg);
+            StartCoroutine(ShowMessage(msg));
         }
         else
         {
-            print("Finished Uploading Screenshot");
-            StartCoroutine(ShowMessage("Uploaded Successfully"));
+            StartCoroutine(ShowMessage("No message recieved"));
         }
     }
 

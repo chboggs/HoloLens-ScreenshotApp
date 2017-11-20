@@ -12,6 +12,7 @@ public class FollowCamera : MonoBehaviour {
     public float desiredAngle = 0;
 
     //public float cam;
+    bool snap = true;
 
     GameObject cameraReference;
 
@@ -19,6 +20,12 @@ public class FollowCamera : MonoBehaviour {
 	void Start () {
         cameraReference = GameObject.FindGameObjectWithTag("MainCamera");
 	}
+
+    private void OnEnable()
+    {
+        snap = true;
+    }
+
     private void Update()
     {
         Vector3 cameraDirection = Vector3.ProjectOnPlane(cameraReference.transform.forward, Vector3.up).normalized;
@@ -32,8 +39,15 @@ public class FollowCamera : MonoBehaviour {
         {
             //Debug.LogFormat("camerangle: {0}, currentangle: {1}", cameraAngle, currentAngle);
         }
-
-        currentAngle = BringAngleCloser(currentAngle, desiredAngle, AngularSpeed);
+        if (snap)
+        {
+            currentAngle = desiredAngle;
+            snap = false;
+        }
+        else
+        {
+            currentAngle = BringAngleCloser(currentAngle, desiredAngle, AngularSpeed);
+        }
 
         transform.position = cameraReference.transform.position + new Vector3(Mathf.Cos(currentAngle),0, Mathf.Sin(currentAngle)) * Distance;
 

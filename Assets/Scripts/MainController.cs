@@ -101,6 +101,11 @@ public class MainController : MonoBehaviour
         }
     }
 
+    public void SwitchToLogin()
+    {
+        mm.SetMode(ModeManager.ModeManagerMode.Login);
+    }
+
 	public void AddPhotoToRoll(Texture2D image){
 		CapturedPhotos.Add (image);
 	}
