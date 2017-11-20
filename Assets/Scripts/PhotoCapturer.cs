@@ -20,6 +20,7 @@ public class PhotoCapturer : MonoBehaviour
             return;
         }
         taking = true;
+        FindObjectOfType<Flasher>().Flash();
 
         //Debug.Log("starting to take photo");
         mc = mci;

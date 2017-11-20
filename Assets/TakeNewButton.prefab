@@ -266,6 +266,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HoverColor: {fileID: 2100000, guid: e5703db493a3818428465210d49acfb7, type: 2}
   MainColor: {fileID: 2100000, guid: 9bc6f119977588c41a9512390dedc42c, type: 2}
+  TappedColor: {fileID: 2100000, guid: 455147cec5999dc479ab21f9ad1915d6, type: 2}
 --- !u!114 &114880182069815848
 MonoBehaviour:
   m_ObjectHideFlags: 1
