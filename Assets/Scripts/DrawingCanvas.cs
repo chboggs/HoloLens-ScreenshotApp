@@ -22,6 +22,8 @@ public class DrawingCanvas : MonoBehaviour
 
     CanvasSizer cs;
 
+    public GameObject cursor;
+
 	public GameObject LinePrefab;
 	LineRenderer lr = null;
 
@@ -155,7 +157,8 @@ public class DrawingCanvas : MonoBehaviour
 
 	public void SetColor(Color c){
 		DrawColor = c;
-	}
+        cursor.GetComponent<Renderer>().material.color = DrawColor;
+    }
 
 	public void SetRed(){
 		SetColor (Color.red);

@@ -29,6 +29,15 @@ public class SpeechManager : MonoBehaviour
             mc.TakePhoto();
         });
 
+        keywords.Add("Capture Capture", () =>
+        {
+            if (FindObjectOfType<ModeManager>().currentMode == ModeManager.ModeManagerMode.Capture)
+            {
+
+                FindObjectOfType<ModeManager>().SetMode(ModeManager.ModeManagerMode.Gallery);
+            }
+        });
+
         keywords.Add("Take New Photo", () =>
         {
             Debug.Log("Take New Photo said");

@@ -11,6 +11,8 @@ public class EditManagerScript : MonoBehaviour
     GameObject UpperCube;
     GameObject LowerCube;
     public GameObject CubePrefab;
+    public GameObject drawingbuttons;
+    public GameObject cursor;
 
     GameObject TLButtons;
     GameObject CropButtons;
@@ -44,6 +46,8 @@ public class EditManagerScript : MonoBehaviour
     {
         drawing = true;
         cropping = false;
+        cursor.GetComponent<Renderer>().material.color = dc.DrawColor;
+        drawingbuttons.SetActive(true);
         dc.StartDraw();
         //Debug.Log("Started draw ems");
     }
@@ -52,6 +56,8 @@ public class EditManagerScript : MonoBehaviour
     {
         cropping = true;
         drawing = false;
+        cursor.GetComponent<Renderer>().material.color = Color.green;
+        drawingbuttons.SetActive(false);
         cc.StartCrop();
         AddToStack();
         CropButtons.SetActive(true);

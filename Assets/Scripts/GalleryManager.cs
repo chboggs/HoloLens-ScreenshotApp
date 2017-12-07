@@ -1,12 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GalleryManager : MonoBehaviour
 {
 
     int photoIndex = -1;
-
+    public Text placeText;
     MainController main;
     CanvasSizer cs;
 
@@ -15,6 +16,7 @@ public class GalleryManager : MonoBehaviour
     {
         main = FindObjectOfType<MainController>();
         cs = GetComponentInChildren<CanvasSizer>();
+        SetPlaceText();
     }
 
     public void Reset()
@@ -41,6 +43,7 @@ public class GalleryManager : MonoBehaviour
             
         }
         Debug.Log("init, index: " + photoIndex.ToString());
+        SetPlaceText();
         return photoIndex >= 0;
     }
 
@@ -83,6 +86,7 @@ public class GalleryManager : MonoBehaviour
             Debug.Log("null");
             cs.gameObject.SetActive(false);
         }
+        SetPlaceText();
     }
 
     public Texture2D GetSelected()
@@ -95,6 +99,19 @@ public class GalleryManager : MonoBehaviour
         {
             return null;
         }
+    }
+
+    void SetPlaceText()
+    {
+        if (main.CapturedPhotos.Count > 0)
+        {
+            placeText.text = (photoIndex + 1).ToString() + " of " + main.CapturedPhotos.Count.ToString();
+        }
+        else
+        {
+            placeText.text = "0 of 0";
+        }
+        
     }
 
 }

@@ -75,6 +75,10 @@ public class MainController : MonoBehaviour
 			FindObjectOfType<EditManagerScript>().SetImage(editedImage);
         }
 		if (mm.currentMode == ModeManager.ModeManagerMode.Gallery) {
+            if(CapturedPhotos.Count == 0)
+            {
+                return;
+            }
             Texture2D temp = FindObjectOfType<GalleryManager>().GetSelected();
             mm.SetMode (ModeManager.ModeManagerMode.Edit);
             FindObjectOfType<EditManagerScript>().SetImage(temp);
@@ -109,4 +113,9 @@ public class MainController : MonoBehaviour
 	public void AddPhotoToRoll(Texture2D image){
 		CapturedPhotos.Add (image);
 	}
+
+    public void OpenWebapp()
+    {
+        Application.OpenURL("http://screenshot-tool-eecs498.herokuapp.com");
+    }
 }

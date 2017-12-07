@@ -7,6 +7,7 @@ public class ModeManager : MonoBehaviour
 
     List<Record> records;
     public ModeManagerMode currentMode = ModeManagerMode.Init;
+    public GameObject cursor;
 
     // Use this for initialization
     void Start()
@@ -36,6 +37,11 @@ public class ModeManager : MonoBehaviour
         {
             Debug.Log("same mode");
             return;
+        }
+        if(currentMode == ModeManagerMode.Edit)
+        {
+            FindObjectOfType<EditManagerScript>().CancelCrop();
+            cursor.GetComponent<Renderer>().material.color = Color.green;
         }
         currentMode = mode;
         Debug.Log("changing mode");
