@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44658017, g: 0.49641502, b: 0.57482153, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -77,15 +77,17 @@ LightmapSettings:
     m_PVRDirectSampleCount: 32
     m_PVRSampleCount: 500
     m_PVRBounces: 2
-    m_PVRFiltering: 0
+    m_PVRFilterTypeDirect: 0
+    m_PVRFilterTypeIndirect: 0
+    m_PVRFilterTypeAO: 0
     m_PVRFilteringMode: 1
     m_PVRCulling: 1
     m_PVRFilteringGaussRadiusDirect: 1
     m_PVRFilteringGaussRadiusIndirect: 5
     m_PVRFilteringGaussRadiusAO: 2
-    m_PVRFilteringAtrousColorSigma: 1
-    m_PVRFilteringAtrousNormalSigma: 1
-    m_PVRFilteringAtrousPositionSigma: 1
+    m_PVRFilteringAtrousPositionSigmaDirect: 0.5
+    m_PVRFilteringAtrousPositionSigmaIndirect: 2
+    m_PVRFilteringAtrousPositionSigmaAO: 1
   m_LightingDataAsset: {fileID: 0}
   m_UseShadowmask: 1
 --- !u!196 &4
@@ -2977,9 +2979,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 358e6da1d00b74142a1c72a9b9d4ff37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WaitAngle: 0.7853982
+  WaitAngle: 0.3
   AngularSpeed: 0.05
-  Distance: 2
+  Distance: 2.3
   currentAngle: 0
   desiredAngle: 0
 --- !u!4 &656259742
@@ -3826,7 +3828,7 @@ TextMesh:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 909530987}
-  m_Text: 'User Name:'
+  m_Text: 'Username:'
   m_OffsetZ: 0
   m_CharacterSize: 1
   m_LineSpacing: 1
@@ -4942,6 +4944,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 27870053}
     m_Modifications:
+    - target: {fileID: 114430415437835272, guid: fc321944200d7574999098e8dc5f3de1,
+        type: 2}
+      propertyPath: TappedEvent.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4409799097503642, guid: fc321944200d7574999098e8dc5f3de1, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0.632
@@ -4992,6 +4999,31 @@ Prefab:
         type: 2}
       propertyPath: m_Text
       value: Continue
+      objectReference: {fileID: 0}
+    - target: {fileID: 114430415437835272, guid: fc321944200d7574999098e8dc5f3de1,
+        type: 2}
+      propertyPath: TappedEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114430415437835272, guid: fc321944200d7574999098e8dc5f3de1,
+        type: 2}
+      propertyPath: TappedEvent.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114430415437835272, guid: fc321944200d7574999098e8dc5f3de1,
+        type: 2}
+      propertyPath: TappedEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 940620330}
+    - target: {fileID: 114430415437835272, guid: fc321944200d7574999098e8dc5f3de1,
+        type: 2}
+      propertyPath: TappedEvent.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: StartUpload
+      objectReference: {fileID: 0}
+    - target: {fileID: 114430415437835272, guid: fc321944200d7574999098e8dc5f3de1,
+        type: 2}
+      propertyPath: TappedEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: fc321944200d7574999098e8dc5f3de1, type: 2}

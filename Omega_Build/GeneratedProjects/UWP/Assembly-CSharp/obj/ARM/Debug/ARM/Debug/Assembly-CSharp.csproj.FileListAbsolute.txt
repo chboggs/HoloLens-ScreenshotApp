@@ -1,0 +1,1 @@
+C:\Users\Cody\source\repos\ScreenshotTool\ScreenshotTool\Omega_Build\GeneratedProjects\UWP\Assembly-CSharp\obj\ARM\Debug\ARM\Debug\Assembly-CSharp.csproj.CoreCompileInputs.cache

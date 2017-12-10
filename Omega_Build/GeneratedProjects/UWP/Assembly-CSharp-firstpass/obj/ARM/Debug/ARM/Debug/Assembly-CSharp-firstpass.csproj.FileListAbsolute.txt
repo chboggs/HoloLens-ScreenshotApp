@@ -1,0 +1,2 @@
+C:\Users\Cody\source\repos\ScreenshotTool\ScreenshotTool\Omega_Build\GeneratedProjects\UWP\Assembly-CSharp-firstpass\obj\ARM\Debug\ARM\Debug\Assembly-CSharp-firstpass.csprojResolveAssemblyReference.cache
+C:\Users\Cody\source\repos\ScreenshotTool\ScreenshotTool\Omega_Build\GeneratedProjects\UWP\Assembly-CSharp-firstpass\obj\ARM\Debug\ARM\Debug\Assembly-CSharp-firstpass.csproj.CoreCompileInputs.cache

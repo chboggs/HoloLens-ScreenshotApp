@@ -1,0 +1,7 @@
+C:\Users\Cody\source\repos\ScreenshotTool\ScreenshotTool\Omega_Build\ScreenshotTool\obj\ARM\Debug\ScreenshotTool.csprojResolveAssemblyReference.cache
+C:\Users\Cody\source\repos\ScreenshotTool\ScreenshotTool\Omega_Build\ScreenshotTool\obj\ARM\Debug\App.g.i.cs
+C:\Users\Cody\source\repos\ScreenshotTool\ScreenshotTool\Omega_Build\ScreenshotTool\obj\ARM\Debug\App.g.cs
+C:\Users\Cody\source\repos\ScreenshotTool\ScreenshotTool\Omega_Build\ScreenshotTool\obj\ARM\Debug\App.xaml
+C:\Users\Cody\source\repos\ScreenshotTool\ScreenshotTool\Omega_Build\ScreenshotTool\obj\ARM\Debug\MainPage.xaml
+C:\Users\Cody\source\repos\ScreenshotTool\ScreenshotTool\Omega_Build\ScreenshotTool\obj\ARM\Debug\App.xbf
+C:\Users\Cody\source\repos\ScreenshotTool\ScreenshotTool\Omega_Build\ScreenshotTool\obj\ARM\Debug\MainPage.xbf

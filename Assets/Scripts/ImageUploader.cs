@@ -50,12 +50,23 @@ public class ImageUploader : MonoBehaviour
         yield return w;
 
         string response = w.text;
-
+        Debug.Log("got response");
         var parsed = SimpleJSON.JSON.Parse(response);
-
-        string msg = parsed["msg"];
-        string url = parsed["url"];
-
+        Debug.Log("response to json");
+        string url="";
+        string msg="";
+        try
+        {
+            msg = parsed["msg"];
+            Debug.Log("msg parsed");
+            url = parsed["url"];
+            Debug.Log("url parsed");
+        }
+        catch(Exception e)
+        {
+            Debug.Log(e);
+        }
+        
         if (string.IsNullOrEmpty(msg)){
             msg = "Bad server response";
             url = null;
