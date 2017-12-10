@@ -10,14 +10,6 @@ public class ImageUploader : MonoBehaviour
     public EditManagerScript editmanager;
     public string UploadRoute = "https://backend-498.herokuapp.com/api/new-image-hololens";
 
-    public GameObject TextObject;
-
-    private void Start()
-    {
-        TextObject = GameObject.FindGameObjectWithTag("MessageText");
-        TextObject.SetActive(false);
-    }
-
     public void StartUpload()
     {
         StartCoroutine(Upload());
@@ -62,26 +54,13 @@ public class ImageUploader : MonoBehaviour
         var parsed = SimpleJSON.JSON.Parse(response);
 
         string msg = parsed["msg"];
-        Debug.Log("message");
+        string url = parsed["url"];
 
-        if (!string.IsNullOrEmpty(msg))
-        {
-            Debug.Log(msg);
-            StartCoroutine(ShowMessage(msg));
-        }
-        else
-        {
-            StartCoroutine(ShowMessage("No message recieved"));
-        }
-    }
+        if (string.IsNullOrEmpty(msg)){
+            msg = "Bad server response";
+            url = null;
+        };
 
-    IEnumerator ShowMessage(string message)
-    {
-        Debug.Log("SHOWING MESSAGE");
-        TextObject.SetActive(true);
-        TextObject.GetComponent<Text>().text = message;
-        yield return new WaitForSeconds(3);
-        TextObject.SetActive(false);
-
+        Resources.FindObjectsOfTypeAll<ImageUploaded>()[0].SetInfo(msg, url);
     }
 }

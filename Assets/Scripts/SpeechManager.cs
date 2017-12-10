@@ -68,6 +68,26 @@ public class SpeechManager : MonoBehaviour
             Debug.Log("crack said");
         });
 
+        keywords.Add("Open in Browser", () =>
+         {
+             ImageUploaded uploaded = FindObjectOfType<ImageUploaded>();
+             if (uploaded != null)
+             {
+                 uploaded.OpenInBrowser();
+             }
+
+         });
+
+        keywords.Add("Dismiss", () =>
+        {
+            ImageUploaded uploaded = FindObjectOfType<ImageUploaded>();
+            if (uploaded != null)
+            {
+                uploaded.Dismiss();
+            }
+
+        });
+
         //Debug.Log("registering buttons");
         foreach (KeywordAssigner assigner in FindObjectsOfType<KeywordAssigner>())
         {
