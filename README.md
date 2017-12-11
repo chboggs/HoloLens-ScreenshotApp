@@ -8,7 +8,7 @@ Team Members:
 
 ## Deploy Instructions:
 * Download Repo
-* Open Beta_Build Folder
+* Open Omega_Build Folder
 * Open ScreenshotTool.sln with Visual Studio
 * Set build settings to "Release", "x86", "Device" (if hololens is plugged into usb)
 * Hit "Build">"Deploy ScreenshotTool"
